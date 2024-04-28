@@ -1,5 +1,6 @@
 # uniOfLondonProjects
-Repository for subject Introduction to Programming from University of London 2024
+Repository for subject Introduction to Programming from Goldsmiths, University of London 
+2024
 
 # Javascript library
 In this course we will be using js and p5js library
