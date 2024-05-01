@@ -38,6 +38,10 @@ function draw()
 
 	//1. a cloud in the sky
 	//... add your code here
+	fill(255);
+	ellipse(230, 130, 60, 60);
+	ellipse(270, 130, 60, 50);
+	ellipse(190, 130, 60, 50);
 
 	noStroke();
 	fill(255);
