@@ -26,6 +26,7 @@ WARNING: Do not get too carried away. If you're shape takes more than 15 lines o
 function setup()
 {
 	createCanvas(1024, 576);
+	
 }
 
 function draw()
@@ -81,51 +82,48 @@ function draw()
 	text("tree", 800, 346);
 
 	noStroke();
-	fill(0);
-	quad(870, 432, 950, 432, 1000, 420, 820, 420);
+	fill(46,0,9);
+	
+	ellipse(920, 410, 10, 50);
 
 	fill(0,255,0);
 	stroke(5);
-	// corner circles
-	circle(930, 350, 30);
-	circle(900, 350, 30);
-	circle(930, 320, 30);
-	circle(900, 320, 30);
-  
-	/* // top, bottom, left, and right circles
-	circle(150, 0, 300);
-	circle(150, 300, 300);
-	circle(0, 150, 300);
-	circle(300, 150, 300); */
-  
-	/*// centered circles
-	circle(150, 150, 300);
-	circle(150, 150, 150); */
 
-	
+	// corner ellipses
+	ellipse(900, 335,30,15);
+	ellipse(940, 335,30,15);
+	ellipse(900, 365,30, 15);
+	ellipse(940, 365,30, 15);
+  
+	// top, bottom, left, and right ellipses
+	ellipse(920, 320, 30, 15);
+	ellipse(920, 380, 30, 15);
+	ellipse(890, 350, 30, 15);
+	ellipse(950, 350, 30, 15);
+
+	noStroke();
+	circle(920, 350, 60);
+  
 
 	//4. a canyon
 	//NB. the canyon should go from ground-level to the bottom of the screen
 	//... add your code here
 
-	/* noStroke();
+	noStroke();
 	fill(255);
 	text("canyon", 100, 480);
+	fill(251,128,48);
+	noStroke();
 
-	noFill();
-	stroke(255);
-	beginShape();
+	rect(0, 332, 100, 150);
+	rect(20, 370, 120, 100);
+	rect(120, 390, 40, 70);
+	rect(150, 405, 30, 30);
 
-  	// Add the first control point.
-  	curveVertex(100, 320);
-  	// Add the anchor points.
-  	curveVertex(160, 434);
-  	curveVertex(180, 450);
-  	// Add the second control point.
-  	curveVertex(80, 91);
-  	// Stop drawing the shape.
-  	endShape(); */
-
+	rect(250, 332, 100, 170);
+	rect(220, 370, 100, 100);
+	rect(210, 390, 100, 70);
+	rect(200, 405, 100, 30);
 
 	//5. a collectable token - eg. a jewel, fruit, coins
 	//... add your code here
@@ -133,4 +131,23 @@ function draw()
 	noStroke();
 	fill(255);
 	text("collectable item", 400, 400);
+	// cube function
+	var size = 15; //sets cube side length 
+	drawCube(size);
 }
+
+function drawCube(xx) {
+	var dW = 30; //drawing width
+	var dH = 10; //drawing height
+	var cW = 500; //x coordinate for center
+	var cH = 400; //y coordinate for center
+	var yy = xx/2; //half of side length
+	fill(0); //sets fill color to red
+	stroke(255);
+	quad (cW, cH, cW + xx, cH - yy, cW, cH - xx, cW - xx, cH - yy); //draws the top quad of a cube
+	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); //draws the right quad of a cube
+	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); //draws the left quad of a cube
+
+	
+
+  }
