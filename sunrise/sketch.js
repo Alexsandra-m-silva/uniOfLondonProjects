@@ -31,7 +31,7 @@ function setup()
 	//initalise the tree object
 	tree = {
 		x: 150,
-		y: groundHeight + 20,
+		y: groundHeight - 80,
 		trunkWidth: 40,
 		trunkHeight: 150,
 		canopyWidth: 120,
@@ -46,10 +46,13 @@ function setup()
 	};
     
     //TASK: intialise a moon object with an extra property for brightness
-
-
-	//set the initial darkness
-	darkness = 0;
+	moon = {
+		x:650,
+		y:70,
+		diameter: 80,
+		darkness: 0,
+	};
+	
 }
 
 
@@ -66,9 +69,9 @@ function draw()
 
 	//draw the sun
 	fill(255, 255, 0);
-	ellipse(sun.x, sun.y, sun.diameter);
+	ellipse(sun.x, sun.y + mouseX, sun.diameter);
     
-    //TASK: you'll need to draw the moon too. Make sure you use brightness to adjust the colour
+    
 
 	//draw the ground and make it green
 	fill(70, 200, 0);
@@ -85,10 +88,20 @@ function draw()
 		mountain2.x + (mountain2.width / 2), mountain2.y - mountain2.height);
     
     //TASK: You can draw the tree yourself
+	fill(87,53,19);
+	rect(tree.x, tree.y, tree.trunkWidth, tree.trunkHeight);
+	fill(95,242,50);
+	ellipse(tree.x + 20, tree.y, tree.canopyWidth, tree.canopyHeight);
     
 
 	//TASK: make the scene dark by drawing a rectangle that covers the whole canvas.
 	//Use the alpha value of fill to determine how dark to make it
+	fill('rgba(0, 0, 0,' + mouseX/1000  + ')');
+	rect(0,0, 800, 600);
+
+	//TASK: you'll need to draw the moon too. Make sure you use brightness to adjust the colour
+	fill('rgba(255, 255, 255,' + moon.darkness + mouseX/800 + ')');
+	ellipse(moon.x, moon.y, moon.diameter);
 
 
 
