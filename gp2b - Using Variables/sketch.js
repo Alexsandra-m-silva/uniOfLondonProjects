@@ -90,30 +90,6 @@ function draw()
 	var size = collectable.size; //sets cube side length 
 	drawCube(size);
 
-	//Standing, facing frontwards
-	//Add your code here ...
-	// body
-	fill(50, 350, 400);
-	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
-
-	// legs
-	fill(0);
-	rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
-	rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
-
-	// eyes
-	fill(350, 0, 400);
-	stroke(10);
-	ellipse(gameChar_x, gameChar_y - 45, 18, 10);
-	noStroke();
-	fill(400, 300, 400);
-	ellipse(gameChar_x, gameChar_y - 45, 4, 8);
-
-	// arms
-	fill(0);
-	rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
-	rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
-
 	//1. a cloud in the sky
 	fill(255,255,204);
 	ellipse(cloud.x_pos + 30, cloud.y_pos, cloud.width, cloud.height + 10);
@@ -140,6 +116,30 @@ function draw()
 	stroke(229,66,45);
 	fill(229,66,45);
 	triangle(750, 150, 580, 432, 650, 432);
+
+	//Standing, facing frontwards
+	//Add your code here ...
+	// body
+	fill(50, 350, 400);
+	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+
+	// legs
+	fill(0);
+	rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
+	rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
+
+	// eyes
+	fill(350, 0, 400);
+	stroke(10);
+	ellipse(gameChar_x, gameChar_y - 45, 18, 10);
+	noStroke();
+	fill(400, 300, 400);
+	ellipse(gameChar_x, gameChar_y - 45, 4, 8);
+
+	// arms
+	fill(0);
+	rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
+	rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
 
 }
 
