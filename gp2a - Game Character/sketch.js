@@ -79,27 +79,6 @@ function draw()
 	rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
 	rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
 
-	/* Right arms (curved)
-	strokeWeight(1);
-	stroke(350, 0, 0);
-	point(gameChar_x - 13, gameChar_y - 40);
-	point(gameChar_x - 5, gameChar_y - 30);
-	
-	 // starting point of the curve
-	point(gameChar_x - 20, gameChar_y - 34);
-	
-	curve(gameChar_x - 20, gameChar_y - 34, 
-			gameChar_x - 13, gameChar_y - 40, 
-			gameChar_x - 5, gameChar_y - 30, 
-			gameChar_x + 20 , gameChar_y - 30);
-	noStroke();
-	//point(); */
-
-	// Left arms 
-
-
-
-
 	//Jumping facing forwards
 	stroke(10);
 	noFill();
