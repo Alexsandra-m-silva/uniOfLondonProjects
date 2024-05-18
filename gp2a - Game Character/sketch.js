@@ -37,6 +37,8 @@ var gameChar_y = 0;
 function setup()
 {
 	createCanvas(400, 600);
+	colorMode(HSB, 400);
+	
 }
 
 function draw()
@@ -45,7 +47,7 @@ function draw()
 
 	//Standing, facing frontwards
 
-	stroke(100);
+	stroke(10);
 	noFill();
 	rect(20, 60, 50, 80);
 	noStroke();
@@ -55,10 +57,51 @@ function draw()
 	gameChar_x = 45;
 	gameChar_y = 137;
 	//Add your code here ...
+	// body
+	fill(50, 350, 400);
+	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+
+	// legs
+	fill(350, 0, 0);
+	rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
+	rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
+
+	// eyes
+	fill(350, 0, 400);
+	stroke(10);
+	ellipse(gameChar_x, gameChar_y - 45, 18, 10);
+	noStroke();
+	fill(400, 300, 400);
+	ellipse(gameChar_x, gameChar_y - 45, 4, 8);
+
+	// arms
+	fill(350, 0, 0);
+	rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
+	rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
+
+	/* Right arms (curved)
+	strokeWeight(1);
+	stroke(350, 0, 0);
+	point(gameChar_x - 13, gameChar_y - 40);
+	point(gameChar_x - 5, gameChar_y - 30);
+	
+	 // starting point of the curve
+	point(gameChar_x - 20, gameChar_y - 34);
+	
+	curve(gameChar_x - 20, gameChar_y - 34, 
+			gameChar_x - 13, gameChar_y - 40, 
+			gameChar_x - 5, gameChar_y - 30, 
+			gameChar_x + 20 , gameChar_y - 30);
+	noStroke();
+	//point(); */
+
+	// Left arms 
+
+
 
 
 	//Jumping facing forwards
-	stroke(100);
+	stroke(10);
 	noFill();
 	rect(220, 60, 50, 80);
 	noStroke();
@@ -68,10 +111,33 @@ function draw()
 	gameChar_x = 245;
 	gameChar_y = 137;
 	//Add your code here ...
+	
+	// body
+	fill(50, 350, 400);
+	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 
+	// legs
+	fill(350, 0, 0);
+	rect(gameChar_x - 13, gameChar_y - 20, 3, 10);
+	rect(gameChar_x - 14, gameChar_y - 13, 3, 10);
+	rect(gameChar_x + 10, gameChar_y - 20, 3, 10);
+	rect(gameChar_x + 9, gameChar_y - 13, 3, 10);
+
+	// eyes
+	fill(350, 0, 400);
+	stroke(10);
+	ellipse(gameChar_x, gameChar_y - 45, 18, 10);
+	noStroke();
+	fill(400, 300, 400);
+	ellipse(gameChar_x, gameChar_y - 45, 4, 8);
+
+	// arms
+	fill(350, 0, 0);
+	rect(gameChar_x - 15, gameChar_y - 45, 3, 10);
+	rect(gameChar_x + 12, gameChar_y - 45, 3, 10);
 
 	//Walking, turned left
-	stroke(100);
+	stroke(10);
 	noFill();
 	rect(20, 260, 50, 80);
 	noStroke();
@@ -81,10 +147,31 @@ function draw()
 	gameChar_x = 45;
 	gameChar_y = 337;
 	//Add your code here ...
+	// body
+	fill(50, 350, 400);
+	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 
+	// arms
+	fill(350, 0, 0);
+	rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
+
+	
+	// legs
+	fill(350, 0, 0);
+	rect(gameChar_x - 8, gameChar_y - 20, 3, 20);
+	rect(gameChar_x, gameChar_y - 20, 3, 10);
+	rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
+
+	// eyes
+	fill(350, 0, 400);
+	stroke(5);
+	ellipse(gameChar_x - 8, gameChar_y - 45, 6, 10);
+	noStroke();
+	fill(400, 300, 400);
+	ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
 
 	//Walking, turned right
-	stroke(100);
+	stroke(10);
 	noFill();
 	rect(220, 260, 50, 80);
 	noStroke();
@@ -95,9 +182,33 @@ function draw()
 	gameChar_y = 337;
 	//Add your code here ...
 
+	// body
+	fill(50, 350, 400);
+	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+
+	// arms
+	fill(350, 0, 0);
+	rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
+
+	
+	// legs
+	fill(350, 0, 0);
+	rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
+	rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
+	rect(gameChar_x, gameChar_y - 20, 3, 20);
+	
+
+	// eyes
+	fill(350, 0, 400);
+	stroke(5);
+	ellipse(gameChar_x + 8, gameChar_y - 45, 6, 10);
+	noStroke();
+	fill(400, 300, 400);
+	ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
+
 
 	//Jumping right
-	stroke(100);
+	stroke(10);
 	noFill();
 	rect(20, 460, 50, 80);
 	noStroke();
@@ -108,9 +219,35 @@ function draw()
 	gameChar_y = 537;
 	//Add your code here ...
 
+	// body
+	fill(50, 350, 400);
+	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+
+	// arms
+	fill(350, 0, 0);
+	rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
+	rect(gameChar_x + 10, gameChar_y - 55, 3, 12);
+
+	
+	// legs
+	fill(350, 0, 0);
+	rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
+	rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
+	rect(gameChar_x, gameChar_y - 20, 3, 10);
+	rect(gameChar_x - 3, gameChar_y - 13, 3, 10);
+	
+
+	// eyes
+	fill(350, 0, 400);
+	stroke(5);
+	ellipse(gameChar_x + 8, gameChar_y - 45, 6, 10);
+	noStroke();
+	fill(400, 300, 400);
+	ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
+
 
 	//Jumping to the left
-	stroke(100);
+	stroke(10);
 	noFill();
 	rect(220, 460, 50, 80);
 	noStroke();
@@ -120,5 +257,31 @@ function draw()
 	gameChar_x = 245;
 	gameChar_y = 537;
 	//Add your code here ...
+
+	// body
+	fill(50, 350, 400);
+	triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+
+	// arms
+	fill(350, 0, 0);
+	rect(gameChar_x - 11, gameChar_y - 55, 3, 12);
+	rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
+
+	
+	// legs
+	fill(350, 0, 0);
+	rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
+	rect(gameChar_x - 5, gameChar_y - 13, 3, 10);
+	rect(gameChar_x, gameChar_y - 20, 3, 10);
+	rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
+	
+
+	// eyes
+	fill(350, 0, 400);
+	stroke(5);
+	ellipse(gameChar_x - 8, gameChar_y - 45, 6, 10);
+	noStroke();
+	fill(400, 300, 400);
+	ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
 
 }
