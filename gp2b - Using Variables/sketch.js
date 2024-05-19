@@ -119,7 +119,6 @@ function draw()
 	//5. a collectable token - eg. a jewel, fruit, coins
 	noStroke();
 	fill(255);
-	text("collectable item", 400, 400);
 	// cube function
 	var size = collectable.size; //sets cube side length 
 	drawCube(size);
