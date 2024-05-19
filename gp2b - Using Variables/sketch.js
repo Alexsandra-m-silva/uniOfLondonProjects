@@ -34,8 +34,10 @@ function setup()
 	treePos_y = height/2; 
 
 	canyon =  {x_pos: 0, width: 100};
-	collectable = {x_pos: 100, y_pos: 100, size: 20};
+	collectable = {x_pos: 670, y_pos: 100, size: 15};
 	cloud = {x_pos: 200, y_pos: 130, width: 60, height: 50};
+	mountain = {x_pos: 570, y_pos: 432, height:-302};
+
 }
 
 function draw()
@@ -44,7 +46,52 @@ function draw()
 
 	noStroke();
 	fill(229,66,45);
-	rect(0, floorPos_y, height, width - floorPos_y); //draw some green ground
+	rect(0, floorPos_y, width, width); //draw some  ground
+
+	//4. a canyon
+	fill(251,128,48);
+	noStroke();
+	rect(canyon.x_pos, 332, canyon.width, 150);
+	rect(canyon.x_pos + 20, 370, canyon.width + 20, 100);
+	rect(canyon.x_pos + 120, 390, canyon.width - 60, 70);
+	rect(canyon.x_pos + 150, 405, canyon.width - 70, 30);
+
+	rect(canyon.x_pos + 250, 332, canyon.width, 170);
+	rect(canyon.x_pos + 220, 370, canyon.width, 100);
+	rect(canyon.x_pos + 210, 390, canyon.width, 70);
+	rect(canyon.x_pos + 200, 405, canyon.width, 30);
+
+	//1. a cloud in the sky
+	fill(255,255,204);
+	ellipse(cloud.x_pos + 30, cloud.y_pos, cloud.width, cloud.height + 10);
+	ellipse(cloud.x_pos + 70, cloud.y_pos, cloud.width, cloud.height);
+	ellipse(cloud.x_pos - 10, cloud.y_pos, cloud.width, cloud.height);
+
+	//2. a mountain in the distance
+	//... add your code here
+	noStroke();
+	fill(102,56,63);
+	
+	// Brown triangle
+	fill(102,56,63);
+	triangle(mountain.x_pos + 100, mountain.y_pos + mountain.height, 
+		mountain.x_pos + 150, mountain.y_pos, 
+		mountain.x_pos, mountain.y_pos);
+	
+	// Shade triangle
+	let c = color(251,184,79);
+	let lightValue = lightness(c);
+	fill(lightValue);
+	triangle(mountain.x_pos + 374, (mountain.y_pos - mountain.height) * 0.77, 
+		mountain.x_pos + 150, mountain.y_pos, 
+		mountain.x_pos, mountain.y_pos);
+
+	// Orange triangle
+	stroke(229,66,45);
+	fill(229,66,45);
+	triangle(mountain.x_pos + 100, mountain.y_pos + mountain.height, 
+		mountain.x_pos - 70, mountain.y_pos, 
+		mountain.x_pos, mountain.y_pos);
 
 	//3. a tree
 
@@ -69,19 +116,6 @@ function draw()
 	noStroke();
 	circle(treePos_x + 20, treePos_y + 60, 60);
 
-	//4. a canyon
-	fill(251,128,48);
-	noStroke();
-	rect(canyon.x_pos, 332, canyon.width, 150);
-	rect(canyon.x_pos + 20, 370, canyon.width + 20, 100);
-	rect(canyon.x_pos + 120, 390, canyon.width - 60, 70);
-	rect(canyon.x_pos + 150, 405, canyon.width - 70, 30);
-
-	rect(canyon.x_pos + 250, 332, canyon.width, 170);
-	rect(canyon.x_pos + 220, 370, canyon.width, 100);
-	rect(canyon.x_pos + 210, 390, canyon.width, 70);
-	rect(canyon.x_pos + 200, 405, canyon.width, 30);
-
 	//5. a collectable token - eg. a jewel, fruit, coins
 	noStroke();
 	fill(255);
@@ -89,33 +123,6 @@ function draw()
 	// cube function
 	var size = collectable.size; //sets cube side length 
 	drawCube(size);
-
-	//1. a cloud in the sky
-	fill(255,255,204);
-	ellipse(cloud.x_pos + 30, cloud.y_pos, cloud.width, cloud.height + 10);
-	ellipse(cloud.x_pos + 70, cloud.y_pos, cloud.width, cloud.height);
-	ellipse(cloud.x_pos - 10, cloud.y_pos, cloud.width, cloud.height);
-
-	//2. a mountain in the distance
-	//... add your code here
-	noStroke();
-	fill(102,56,63);
-	text("mountain", 500, 256);
-
-	// Brown triangle
-	fill(102,56,63);
-	triangle(750, 150, 800, 432, 650, 432);
-	
-	// Shade triangle
-	let c = color(251,184,79);
-	let lightValue = lightness(c);
-	fill(lightValue);
-	triangle(1024, 550, 800, 432, 650, 432);
-
-	// Orange triangle
-	stroke(229,66,45);
-	fill(229,66,45);
-	triangle(750, 150, 580, 432, 650, 432);
 
 	//Standing, facing frontwards
 	//Add your code here ...
