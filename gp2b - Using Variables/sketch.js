@@ -19,6 +19,7 @@ var collectable;
 
 var mountain;
 var cloud;
+var sun;
 
 
 function setup()
@@ -47,6 +48,10 @@ function draw()
 	noStroke();
 	fill(229,66,45);
 	rect(0, floorPos_y, width, width); //draw some  ground
+
+	// Sun 
+	fill(255);
+	circle(700, 170, 40);
 
 	//4. a canyon
 	fill(251,128,48);
