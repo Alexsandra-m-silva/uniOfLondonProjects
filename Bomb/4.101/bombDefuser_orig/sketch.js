@@ -4,6 +4,8 @@ var bcenterY;
 var bdiam;
 var fuseEndX;
 var fuseEndY;
+var gameStart;
+var gameOver;
 
 function setup() 
 {
@@ -17,6 +19,7 @@ function setup()
     bcenterY = height/2;
     fuseEndX = bcenterX + 20;
     fuseEndY = bcenterY - bdiam/2 - 30;
+    gameStart = 0;
     
 }
 
@@ -30,8 +33,11 @@ function draw()
     bcenterY = height/2;
     
     //wobble the bomb
-    bcenterX += random(-10,10);
-    bcenterY += random(-10,10);
+    if (gameStart != 0)
+    {
+        bcenterX += random(-10,10);
+        bcenterY += random(-10,10);
+    }
     
     fuseEndX = bcenterX + 20;
     fuseEndY = bcenterY - bdiam/2 - 30;
@@ -73,20 +79,43 @@ function draw()
         vertex(fuseEndX - 10, fuseEndY - 30);
     endShape(CLOSE);
     
-    fill(255);
-    
     //Draw game text
-    text("Press any key to start", 20, 50);
-    text("Game over", 20, height/2);  
-    text("You won !", width/2, height/2);  
-    text("Press a key to diffuse the bomb", 20, height - 50);
+    fill(255);  
+    
+    if(gameStart == 0)
+    {
+        text("Press any key to start", 20, 50);
+    }
+
+    if(gameStart == 1)
+    {
+        text("Press a key to diffuse the bomb", 20, height - 50);
+    }
+
+    if (gameOver == 0)
+    {
+        text("Game over", 20, height/2);  
+        text("You won !", width/2, height/2);
+    }
+
+
+    
     
 }
 
 function keyPressed()
 {
+    if(gameStart == 0)
+    {
+        gameOver = 1;
+    }
 
-    
+    if(gameStart == 1)
+    {
+        gameOver = 0;
+    }
+
+    gameStart = gameOver;
 }
 
 
