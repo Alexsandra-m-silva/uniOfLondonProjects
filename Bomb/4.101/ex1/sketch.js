@@ -1,14 +1,13 @@
 
-var name;
-
+var name_str;
 
 function setup() 
 {
     createCanvas(512,512);
     
-    name = "simon";
+    name_str = "simon";
     
-    if(name == "simon")
+    if(name_str == "simon")
     {
         console.log("Hello Simon!");
     }
