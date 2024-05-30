@@ -36,6 +36,17 @@ function draw()
 
 	background(251,184,79); // fill the sky orange
 
+	// Sun 
+	fill(255);
+	ellipse(700, 170, 40, 40);
+
+	//1. a cloud in the sky
+	//... add your code here
+	fill(255,255,204);
+	ellipse(230, 130, 60, 60);
+	ellipse(270, 130, 60, 50);
+	ellipse(190, 130, 60, 50);
+
 	noStroke();
 	fill(229,66,45);
 	rect(0, floorPos_y, width, height - floorPos_y); //draw some green ground
