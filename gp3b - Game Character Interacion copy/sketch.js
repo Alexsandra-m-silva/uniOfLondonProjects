@@ -27,7 +27,7 @@ function setup()
 	isRight = false;
 	isFalling = false;
 	isPlummeting = false;
-	collectable = {x_pos: 125, y_pos: 440, size: 15, isFound: false};
+	collectable = {x_pos: 100, y_pos: 440, size: 15, isFound: false};
 	canyon =  {x_pos: 0, y_pos: 100, width: 100};
 }
 
@@ -51,35 +51,49 @@ function draw()
 
 	noStroke();
 	fill(229,66,45);
-	rect(0, floorPos_y, width, height - floorPos_y); //draw some green ground
+	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
 
 	// a canyon
 	fill(251,128,48);
 	noStroke();
-	rect(canyon.x_pos, canyon.y_pos + 332, canyon.width, 150);
-	rect(canyon.x_pos + 20, canyon.y_pos + 370, canyon.width + 20, 100);
-	rect(canyon.x_pos + 120, canyon.y_pos + 390, canyon.width - 60, 70);
+	rect(canyon.x_pos, canyon.y_pos + 332, canyon.width - 30, 150);
+	rect(canyon.x_pos + 70, canyon.y_pos + 370, canyon.width - 50, 100);
+	rect(canyon.x_pos + 105, canyon.y_pos + 390, canyon.width - 60, 70);
 
 	rect(canyon.x_pos + 250, canyon.y_pos + 332, canyon.width, 170);
-	rect(canyon.x_pos + 220, canyon.y_pos + 370, canyon.width, 100);
+	rect(canyon.x_pos + 220, canyon.y_pos + 370, canyon.width - 70, 100);
 	rect(canyon.x_pos + 210, canyon.y_pos + 390, canyon.width, 70);
 
 	// Check if character is over the canyon x-axis
-	if(gameChar_x < (canyon.x_pos + 160) )
+	if(gameChar_x > canyon.x_pos && gameChar_x < canyon.x_pos + canyon.width ||
+		gameChar_x > canyon.x_pos + 250 && gameChar_x < canyon.x_pos + 250 + canyon.width)
 	{
-		console.log("Over");
+		gameChar_y = floorPos_y;
 	}
 
-	// Check if character is over the canyon y-axis
-	if(gameChar_y < (canyon.y_pos + 160) )
+	if(gameChar_x > canyon.x_pos + 70 && gameChar_x < canyon.x_pos + 20 + canyon.width ||
+		gameChar_x > canyon.x_pos + 220 && gameChar_x < canyon.x_pos + 150 + canyon.width)
 	{
-		console.log("Down");
+		gameChar_y = canyon.y_pos + 370;
 	}
+	
+	if(gameChar_x > (canyon.x_pos + 60 + canyon.width) && gameChar_x < (canyon.x_pos + 210))
+	{
+		isPlummeting = true;
+	}
+
+	// Make character fall 
+	if(isPlummeting == true)
+	{
+		gameChar_y += 1;
+	}
+
 
 	// Calculate the distance between collectable and character
 	let d = dist(collectable.x_pos, collectable.y_pos, gameChar_x, gameChar_y);
+	console.log(d);
 
-	if (d == 30)
+	if (30 < d && d < 32)
 	{
 		collectable.isFound = true;
 	}
@@ -277,17 +291,20 @@ function keyPressed()
 {
 	// if statements to control the animation of the character when
 	// keys are pressed.
-	if(keyCode == 65)
+	if( isPlummeting == false)
 	{
-		isLeft = true;
+		if(keyCode == 65 )
+		{
+			isLeft = true;
+		}
+		
+		if(keyCode == 68 )
+		{
+			isRight = true;
+		}
 	}
 
-	if(keyCode == 68)
-	{
-		isRight = true;
-	}
-
-	if(keyCode == 87)
+	if(keyCode == 87 )
 	{
 		isPlummeting = true;
 		gameChar_y = gameChar_y - 100;
@@ -302,17 +319,17 @@ function keyReleased()
 {
 	// if statements to control the animation of the character when
 	// keys are released.
-	if(keyCode == 65)
+	if(keyCode == 65 )
 	{
 		isLeft = false;
 	}
 	
-	if(keyCode == 68)
+	if(keyCode == 68 )
 	{
 		isRight = false;
 	}
 
-	if(keyCode == 87)
+	if(keyCode == 87 )
 	{
 		isPlummeting = false;
 		gameChar_y = gameChar_y + 100;
