@@ -23,53 +23,56 @@ function draw()
 	strokeWeight(2);
     translate(0, 400);
 
+    for(i = 0; i < 3; i++) 
+    {
     //ROBOT 1
     translate(200,0);
 
     fill(200);
-    rect(-robotWidths[0]/2, -robotHeights[0] - 130, robotWidths[0], 130);
-    rect(-70, -robotHeights[0] - 130, 30, 100);
-    rect(40,  -robotHeights[0] - 130, 30, 100);
-    rect(-30, -robotHeights[0], 30, robotHeights[0]);
-    rect(0,  -robotHeights[0], 30, robotHeights[0]);
+    rect(-robotWidths[i]/2, -robotHeights[i] - 130, robotWidths[i], 130);
+    rect(-70, -robotHeights[i] - 130, 30, 100);
+    rect(40,  -robotHeights[i] - 130, 30, 100);
+    rect(-30, -robotHeights[i], 30, robotHeights[i]);
+    rect(0,  -robotHeights[i], 30, robotHeights[i]);
 
     //robot heads
     fill(200);
-    rect(-50* headWidths[0], -robotHeights[0] - 230, 100* headWidths[0], 100, 10);
+    rect(-50* headWidths[i], -robotHeights[i] - 230, 100* headWidths[i], 100, 10);
 
     //ears
     fill(255, 0, 0);
-    rect(-50 * headWidths[0] - 10, -robotHeights[0] - 200, 10, 33);
-    rect(50 * headWidths[0], -robotHeights[0] - 200, 10, 33);
+    rect(-50 * headWidths[i] - 10, -robotHeights[i] - 200, 10, 33);
+    rect(50 * headWidths[i], -robotHeights[i] - 200, 10, 33);
 
     //robots' antennas
     fill(250, 250, 0);
-    ellipse(0, -robotHeights[0] - 237, 10, 10);
+    ellipse(0, -robotHeights[i] - 237, 10, 10);
     fill(200, 0, 200);
-    rect(-10, -robotHeights[0] - 233, 20, 10);
+    rect(-10, -robotHeights[i] - 233, 20, 10);
 
     //robot's eyes
     fill(255)
-    ellipse(-25 * headWidths[0], -robotHeights[0] - 200, 26, 26);
-    point(-25 * headWidths[0], -robotHeights[0] - 200);
-    ellipse(25 * headWidths[0], -robotHeights[0] - 200, 26, 26);
-    point(25 * headWidths[0], -robotHeights[0] - 200);
+    ellipse(-25 * headWidths[i], -robotHeights[i] - 200, 26, 26);
+    point(-25 * headWidths[i], -robotHeights[i] - 200);
+    ellipse(25 * headWidths[i], -robotHeights[i] - 200, 26, 26);
+    point(25 * headWidths[i], -robotHeights[i] - 200);
 
     //robots' nose
     fill(255, 0, 0);
-    triangle(0, -robotHeights[0] - 190, -15, -robotHeights[0] - 170,15, -robotHeights[0] - 170);
+    triangle(0, -robotHeights[i] - 190, -15, -robotHeights[i] - 170,15, -robotHeights[i] - 170);
 
     //robot mouth
     noFill();
     beginShape();
-    vertex(-23, -robotHeights[0] - 155);
-    vertex(-15, -robotHeights[0] - 145);
-    vertex(-9, -robotHeights[0] - 155);
-    vertex(-1, -robotHeights[0] - 145);
-    vertex(7, -robotHeights[0] - 155);
-    vertex(15, -robotHeights[0] - 145);
-    vertex(23, -robotHeights[0] - 155);
+    vertex(-23, -robotHeights[i] - 155);
+    vertex(-15, -robotHeights[i] - 145);
+    vertex(-9, -robotHeights[i] - 155);
+    vertex(-1, -robotHeights[i] - 145);
+    vertex(7, -robotHeights[i] - 155);
+    vertex(15, -robotHeights[i] - 145);
+    vertex(23, -robotHeights[i] - 155);
     endShape();
+    }
     
         
     
