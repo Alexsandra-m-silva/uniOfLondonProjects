@@ -19,6 +19,7 @@ var tree_x;
 var treePos_y;
 var cloud;
 var mountain;
+var cameraPosX;
 
 
 function setup()
@@ -37,80 +38,89 @@ function setup()
 			  width/2 + 150, width/2 + 200];
 	treePos_y = height/2; 
 	cloud = [{x: 190, size: 60}, {x: 230, size: 70}, {x: 270, size: 60},
-			 {x: 370, size: 60}, {x: 400, size: 70}, {x: 430, size: 60},
 			 {x: 550, size: 40}, {x: 580, size: 50}, {x: 600, size: 40}];
-	// mountain = []
+	mountain = [{x_pos: 570, y_pos: 432, height:-302},
+				{x_pos: 510, y_pos: 432, height:-392},
+				{x_pos: 600, y_pos: 432, height:-302},
+				{x_pos: 650, y_pos: 432, height:-252}];
+	cameraPosX = 0;
 }
 
 function draw()
 {
 
 	///////////DRAWING CODE//////////
+	cameraPosX = gameChar_x - 500;
 
+	noStroke();
+	fill(229,66,45);
 	background(251,184,79); // fill the sky orange
+	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
+	push();
+	translate(-cameraPosX, 0);
 
 	// Sun 
 	fill(255);
-	ellipse(700, 170, 40, 40);
-	noStroke();
-	fill(229,66,45);
-	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
+	ellipse(500, 170, 40, 40);
 
-	/* Mountain
-	noStroke();
-	fill(102,56,63);
-	
-	// Brown triangle
-	fill(102,56,63);
-	triangle(mountain.x_pos + 100, mountain.y_pos + mountain.height, 
-		mountain.x_pos + 150, mountain.y_pos, 
-		mountain.x_pos, mountain.y_pos);
-	
-	// Shade triangle
-	let c = color(251,184,79);
-	let lightValue = lightness(c);
-	fill(lightValue);
-	triangle(mountain.x_pos + 374, (mountain.y_pos - mountain.height) * 0.77, 
-		mountain.x_pos + 150, mountain.y_pos, 
-		mountain.x_pos, mountain.y_pos);
+	// Mountain
+	for( var i = 0; i < mountain.length; i++) {
+		noStroke();
+		fill(102,56,63);
+		
+		// Brown triangle
+		fill(102,56,63);
+		triangle(mountain[i].x_pos + 100, mountain[i].y_pos + mountain[i].height, 
+			mountain[i].x_pos + 150, mountain[i].y_pos, 
+			mountain[i].x_pos, mountain[i].y_pos);
 
-	// Orange triangle
-	stroke(229,66,45);
-	fill(229,66,45);
-	triangle(mountain.x_pos + 100, mountain.y_pos + mountain.height, 
-		mountain.x_pos - 70, mountain.y_pos, 
-		mountain.x_pos, mountain.y_pos); */
+		// Shade triangle
+		let c = color(251,184,79);
+		let lightValue = lightness(c);
+		fill(lightValue);
+		triangle(mountain[i].x_pos + 374, (mountain[i].y_pos - mountain[i].height) * 0.77, 
+			mountain[i].x_pos + 150, mountain[i].y_pos, 
+			mountain[i].x_pos, mountain[i].y_pos);
+
+		// Orange triangle
+		stroke(229,66,45);
+		fill(229,66,45);
+		triangle(mountain[i].x_pos + 100, mountain[i].y_pos + mountain[i].height, 
+			mountain[i].x_pos - 70, mountain[i].y_pos, 
+			mountain[i].x_pos, mountain[i].y_pos); 
+	}
 	
 	//1. a cloud in the sky
 	//... add your code here
+	stroke(155, 155, 155);
 	for(var i = 0; i < cloud.length; i++) {
-	fill(255,255,204);
-	ellipse(cloud[i].x, 130, cloud[i].size, cloud[i].size - 10);
+		fill(255,255,204);
+		ellipse(cloud[i].x, 130, cloud[i].size, cloud[i].size - 10);
 	}
 	
 	// tree
 	for(var i = 0; i < tree_x.length; i++) {
 		console.log(i);
-	noStroke();
-	fill(46,0,9);
-	ellipse(tree_x[i] + 20, treePos_y + 110, 10, 80);
-	fill(0,255,0);
-	stroke(5);
+		noStroke();
+		fill(46,0,9);
+		ellipse(tree_x[i] + 20, treePos_y + 110, 10, 80);
+		fill(0,255,0);
+		stroke(5);
 
-	// corner ellipses
-	ellipse(tree_x[i], treePos_y + 45, 30, 15);
-	ellipse(tree_x[i] + 40, treePos_y + 45, 30, 15);
-	ellipse(tree_x[i], treePos_y + 75, 30, 15);
-	ellipse(tree_x[i] + 40, treePos_y + 75, 30, 15);
-  
-	// top, bottom, left, and right ellipses
-	ellipse(tree_x[i] + 20, treePos_y + 30, 30, 15);
-	ellipse(tree_x[i] + 20, treePos_y + 90, 30, 15);
-	ellipse(tree_x[i] - 10, treePos_y + 60, 30, 15);
-	ellipse(tree_x[i] + 50, treePos_y + 60, 30, 15);
+		// corner ellipses
+		ellipse(tree_x[i], treePos_y + 45, 30, 15);
+		ellipse(tree_x[i] + 40, treePos_y + 45, 30, 15);
+		ellipse(tree_x[i], treePos_y + 75, 30, 15);
+		ellipse(tree_x[i] + 40, treePos_y + 75, 30, 15);
+	
+		// top, bottom, left, and right ellipses
+		ellipse(tree_x[i] + 20, treePos_y + 30, 30, 15);
+		ellipse(tree_x[i] + 20, treePos_y + 90, 30, 15);
+		ellipse(tree_x[i] - 10, treePos_y + 60, 30, 15);
+		ellipse(tree_x[i] + 50, treePos_y + 60, 30, 15);
 
-	noStroke();
-	circle(tree_x[i] + 20, treePos_y + 60, 60); 
+		noStroke();
+		circle(tree_x[i] + 20, treePos_y + 60, 60); 
 }
 
 	// a canyon
@@ -232,7 +242,7 @@ function draw()
 	else if(isLeft)
 	{
 		// add your walking left code
-		gameChar_x -= 1;
+		gameChar_x -= 4;
 		// body
 		fill(50, 350, 400);
 		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -260,7 +270,7 @@ function draw()
 	else if(isRight)
 	{
 		// add your walking right code
-		gameChar_x += 1;
+		gameChar_x += 4;
 		// body
 		fill(50, 350, 400);
 		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -340,6 +350,8 @@ function draw()
 		rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
 
 	}
+
+	pop();
 
 	///////////INTERACTION CODE//////////
 	//Put conditional statements to move the game character below here

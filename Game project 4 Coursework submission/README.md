@@ -34,7 +34,7 @@ HINT: you can copy the one from part 2b but vary the x and y positions of each o
 Copy your cloud drawing code from part 2b into the body of the for loop.    
 
 Now modify your code so that each cloud is drawn with the position and size determined by the corresponding object in the array
-# here
+
 6. And now for the mountains
 
 Repeat stages 4 and 5 for the mountains
@@ -58,7 +58,7 @@ Just *After* the code which draws the ground and just *Before* your first item o
 Just *After* the code which draws the game character add the command  `pop()`    
 
 Now `cameraPosX` controls the left most position of where the camera is within the game world.     
-
+# here
 At the start of the draw loop, write a line of code to continually change the value of cameraPosX so that the game character always appears in the center of the screen but the background moves behind them.   
 
 Test that your canyon and collectable still interact as expected
