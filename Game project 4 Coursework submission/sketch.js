@@ -178,7 +178,7 @@ function draw()
 		drawCube(size);
 	}
 	
-	//the game character
+	// the game character
 	if(isLeft && isFalling)
 	{
 		// add your jumping-left code

@@ -58,11 +58,12 @@ Just *After* the code which draws the ground and just *Before* your first item o
 Just *After* the code which draws the game character add the command  `pop()`    
 
 Now `cameraPosX` controls the left most position of where the camera is within the game world.     
-# here
+
 At the start of the draw loop, write a line of code to continually change the value of cameraPosX so that the game character always appears in the center of the screen but the background moves behind them.   
 
 Test that your canyon and collectable still interact as expected
 
+# here
 8. Code Presentation
 
     Make sure you produce readable code:        
