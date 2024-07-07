@@ -63,10 +63,9 @@ At the start of the draw loop, write a line of code to continually change the va
 
 Test that your canyon and collectable still interact as expected
 
-# here
 8. Code Presentation
 
-    Make sure you produce readable code:        
+Make sure you produce readable code:        
 
 Use correct indentation        
 
