@@ -30,13 +30,13 @@ function draw()
     fill(228, 25, 6);
     rect(470, 300, 50, 100);
 
-    drawWindows();
+    drawWindows(0, 0, 0);
 
 }
 
-function drawWindows()
+function drawWindows(colorR, colorG, colorB)
 {
-    fill(0);
+    fill(colorR, colorG, colorB);
     for(var i = 0; i < windows.length; i++)
         {
             rect(windows[i].x_pos, windows[i].y_pos, windows[i].size, 50);
@@ -47,9 +47,13 @@ function mousePressed()
 {
     for(var i = 0; i < windows.length; i++)
         {
-           // if()
+            if(mouseX >= windows[i].x_pos && mouseX < windows[i].x_pos + windows[i].size){
+                drawWindows(255, 255, 153);
+                console.log(mouseX, mouseY);
+           }
         }
 }
+// window color is not changing
 
 
 
