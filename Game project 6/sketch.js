@@ -91,6 +91,8 @@ function draw()
 		checkCanyon(canyons[i]);
 	}
 	
+	// draw flagpole
+	renderFlagpole();
 	
 	
 
@@ -113,6 +115,13 @@ function draw()
 	{
 		gameChar_y += 1;
 	}
+
+	// check Flagpole
+	if(flagpole.isReached == false)
+	{
+		checkFlagpole();
+	}
+	
 
 	if(isLeft && isFalling)
 	{
@@ -285,8 +294,7 @@ function draw()
 		rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
 
 	}
-
-	renderFlagpole();
+	
 	pop();
 
 	fill(255);
@@ -449,17 +457,27 @@ function renderFlagpole() {
 	line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 240);
 	fill(255,0,255);
 	noStroke();
-	if(flagpole.isReached) {
-		rect(flagpole.x_pos, floorPos_y-350, 50,50);
-	} else {
+
+	if(flagpole.isReached) 
+	{
+		rect(flagpole.x_pos, floorPos_y - 50, 50,50);
+	} else 
+	{
 		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
 	}
+
+	// console.log(flagpole.isReached);
 
 	pop();
 }
 
 function checkFlagpole() {
+	var d = abs(gameChar_x - flagpole.x_pos);
 	
+	if( d < 5)
+	{
+		flagpole.isReached = true;
+	}
 }
 
 function drawMountains() {

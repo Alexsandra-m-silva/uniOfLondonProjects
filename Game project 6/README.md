@@ -28,7 +28,7 @@ in your new game directory.
 	- call the function from `draw`, but write a conditional so that `checkFlagpole` is only called when `flagpole.isReached` is `false`
 	- in `checkFlagpole` write a conditional such that when the gameChar is in range of the flagpole
 	its `isReached` property is set to `true`
-
+# here
 4. Add lives [2 marks]
 	- Your character should begin with three lives, and each time they fall down a canyon the game
 	 should reset and their remaining lives decrement by one.
