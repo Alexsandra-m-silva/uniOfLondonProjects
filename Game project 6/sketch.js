@@ -24,6 +24,7 @@ var collectables;
 var canyons;
 var game_score;
 var flagpole;
+var lives;
 
 
 function setup()
@@ -55,6 +56,7 @@ function setup()
 	
 	game_score = 0;		
 	flagpole = { isReached: false, x_pos: 750 };
+	lives = 3;
 	
 }
 
@@ -94,8 +96,14 @@ function draw()
 	// draw flagpole
 	renderFlagpole();
 	
-	
+	// check Flagpole
+	if(flagpole.isReached == false)
+	{
+		checkFlagpole();
+	}
 
+	checkPlayerDie();
+	
 	// collectables
 	for(var i = 0; i < collectables.length; i++) {
 		if(!collectables[i].isFound) 
@@ -115,13 +123,6 @@ function draw()
 	{
 		gameChar_y += 1;
 	}
-
-	// check Flagpole
-	if(flagpole.isReached == false)
-	{
-		checkFlagpole();
-	}
-	
 
 	if(isLeft && isFalling)
 	{
@@ -450,35 +451,6 @@ function checkCanyon(t_canyon) {
 	}
 }
 
-function renderFlagpole() {
-	push();
-	strokeWeight(5);
-	stroke(100);
-	line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 240);
-	fill(255,0,255);
-	noStroke();
-
-	if(flagpole.isReached) 
-	{
-		rect(flagpole.x_pos, floorPos_y - 50, 50,50);
-	} else 
-	{
-		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
-	}
-
-	// console.log(flagpole.isReached);
-
-	pop();
-}
-
-function checkFlagpole() {
-	var d = abs(gameChar_x - flagpole.x_pos);
-	
-	if( d < 5)
-	{
-		flagpole.isReached = true;
-	}
-}
 
 function drawMountains() {
 	for( var i = 0; i < mountain.length; i++) {
@@ -520,3 +492,69 @@ function drawCube(xx, x_pos, y_pos) {
 	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); //draws the right quad of a cube
 	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); //draws the left quad of a cube
   }
+
+  function renderFlagpole() {
+	push();
+	strokeWeight(5);
+	stroke(100);
+	line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 240);
+	fill(255,0,255);
+	noStroke();
+
+	if(flagpole.isReached) 
+	{
+		rect(flagpole.x_pos, floorPos_y - 50, 50,50);
+	} else 
+	{
+		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
+	}
+
+	// console.log(flagpole.isReached);
+
+	pop();
+}
+
+function checkFlagpole() {
+	var d = abs(gameChar_x - flagpole.x_pos);
+	
+	if( d < 5)
+	{
+		flagpole.isReached = true;
+	}
+}
+
+function checkPlayerDie() {
+	if(gameChar_y > 530)
+	{
+		lives -= 1;
+	}
+}
+
+function startGame() {
+	gameChar_x = width/2;
+	gameChar_y = floorPos_y;
+	isLeft = false;
+	isRight = false;
+	isFalling = false;
+	isPlummeting = false;
+	tree_x = [width/2, width/2 + 50, width/2 + 100, 
+			  width/2 + 150, width/2 + 200];
+	treePos_y = height/2; 
+	cloud = [{x: 190, size: 60}, {x: 230, size: 70}, {x: 270, size: 60},
+			 {x: 550, size: 40}, {x: 580, size: 50}, {x: 600, size: 40}];
+	mountain = [{x_pos: 570, y_pos: 432, height:-302},
+				{x_pos: 510, y_pos: 432, height:-392},
+				{x_pos: 600, y_pos: 432, height:-302},
+				{x_pos: 650, y_pos: 432, height:-252}];
+	cameraPosX = 0;
+	collectables = [{x_pos: 100, y_pos: 440, size: 15, isFound: false},
+					{x_pos: 300, y_pos: floorPos_y - 30, size: 15, isFound: false},
+					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false}];
+	canyons = [{x_pos: 0, y_pos: 100, width: 100},
+				{x_pos: 1050, y_pos: 100, width: 100},
+				{x_pos: 1500, y_pos: 100, width: 100}];
+	
+	game_score = 0;		
+	flagpole = { isReached: false, x_pos: 750 };
+	startGame();
+}
