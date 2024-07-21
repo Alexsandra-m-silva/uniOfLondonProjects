@@ -40,11 +40,10 @@ in your new game directory.
 	- Move everything from `setup` except `createCanvas` and the initialisation of `floorPos_y` and
 	`lives` into this new function.
 	- At the end of your now very short `setup` function call `startGame()`.
-	# here
 	- In `checkPlayerDie` create a conditional statement to test if the player has
 	used all of their lives. If there are lives remaining call `startGame`.
-	- Write some code using a `for` loop to draw life tokens onto the screen so that you
-	can keep track of how many lives you have remaining.
+	 - Write some code using a `for` loop to draw life tokens onto the screen so that you
+	can keep track of how many lives you have remaining. 
 
 5. "Game over" and "Level complete" text [2 marks]
 	- In the draw loop, after your drawing code and before your game logic

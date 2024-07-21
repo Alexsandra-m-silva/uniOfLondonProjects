@@ -53,7 +53,6 @@ function setup()
 	canyons = [{x_pos: 0, y_pos: 100, width: 100},
 				{x_pos: 1050, y_pos: 100, width: 100},
 				{x_pos: 1500, y_pos: 100, width: 100}];
-	
 	game_score = 0;		
 	flagpole = { isReached: false, x_pos: 750 };
 	lives = 3;
@@ -62,10 +61,7 @@ function setup()
 
 function draw()
 {
-
-	///////////DRAWING CODE//////////
 	cameraPosX = gameChar_x - 500;
-
 	noStroke();
 	fill(229,66,45);
 	background(251,184,79); // fill the sky orange
@@ -80,13 +76,13 @@ function draw()
 	// Mountain
 	drawMountains();
 	
-	//1. a cloud in the sky
+	// Cloud in the sky
 	drawClouds();
 	
 	// tree
 	drawTrees();
 	
-	// a canyon
+	// Canyon
 	for(var i = 0; i < canyons.length; i++) {
 		drawCanyon(canyons[i]);
 		// Check if character is over the canyon x-axis
@@ -104,20 +100,17 @@ function draw()
 
 	checkPlayerDie();
 	
-	// collectables
 	for(var i = 0; i < collectables.length; i++) {
 		if(!collectables[i].isFound) 
 		{
-			// collectable token - eg. a jewel, fruit, coins
+			// collectable token 
 			drawCollectable(collectables[i]);
-			// Check collectable
+			// check collectable
 			checkCollectable(collectables[i]);
 		}
 		
 	}
 	
-	
-	// the game character
 	// Make character fall 
 	if(isPlummeting == true)
 	{
@@ -126,7 +119,7 @@ function draw()
 
 	if(isLeft && isFalling)
 	{
-		// add your jumping-left code
+		// jumping-left code
 		// body
 		fill(50, 350, 400);
 		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -135,7 +128,6 @@ function draw()
 		fill(350, 0, 0);
 		rect(gameChar_x - 11, gameChar_y - 55, 3, 12);
 		rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
-
 		
 		// legs
 		fill(350, 0, 0);
@@ -144,7 +136,6 @@ function draw()
 		rect(gameChar_x, gameChar_y - 20, 3, 10);
 		rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
 		
-
 		// eyes
 		fill(350, 0, 400);
 		stroke(5);
@@ -152,11 +143,11 @@ function draw()
 		noStroke();
 		fill(400, 300, 400);
 		ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
-
 	}
+
 	else if(isRight && isFalling)
 	{
-		// add your jumping-right code
+		// jumping-right code
 		// body
 		fill(50, 350, 400);
 		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -166,7 +157,6 @@ function draw()
 		rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
 		rect(gameChar_x + 10, gameChar_y - 55, 3, 12);
 
-		
 		// legs
 		fill(350, 0, 0);
 		rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
@@ -174,7 +164,6 @@ function draw()
 		rect(gameChar_x, gameChar_y - 20, 3, 10);
 		rect(gameChar_x - 3, gameChar_y - 13, 3, 10);
 		
-
 		// eyes
 		fill(350, 0, 400);
 		stroke(5);
@@ -182,11 +171,9 @@ function draw()
 		noStroke();
 		fill(400, 300, 400);
 		ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
-
-	}
-	else if(isLeft)
+	} else if(isLeft)
 	{
-		// add your walking left code
+		// walking left code
 		gameChar_x -= 4;
 		// body
 		fill(50, 350, 400);
@@ -196,7 +183,6 @@ function draw()
 		fill(350, 0, 0);
 		rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
 
-		
 		// legs
 		fill(350, 0, 0);
 		rect(gameChar_x - 8, gameChar_y - 20, 3, 20);
@@ -210,11 +196,11 @@ function draw()
 		noStroke();
 		fill(400, 300, 400);
 		ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
-
 	}
+
 	else if(isRight)
 	{
-		// add your walking right code
+		// walking right code
 		gameChar_x += 4;
 		// body
 		fill(50, 350, 400);
@@ -224,14 +210,12 @@ function draw()
 		fill(350, 0, 0);
 		rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
 
-		
 		// legs
 		fill(350, 0, 0);
 		rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
 		rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
 		rect(gameChar_x, gameChar_y - 20, 3, 20);
 		
-
 		// eyes
 		fill(350, 0, 400);
 		stroke(5);
@@ -239,11 +223,9 @@ function draw()
 		noStroke();
 		fill(400, 300, 400);
 		ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
-
-	}
-	else if(isFalling || isPlummeting)
+	} else if(isFalling || isPlummeting)
 	{
-		// add your jumping facing forwards code
+		// jumping facing forwards code
 		// body
 		fill(50, 350, 400);
 		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -267,11 +249,9 @@ function draw()
 		fill(350, 0, 0);
 		rect(gameChar_x - 15, gameChar_y - 45, 3, 10);
 		rect(gameChar_x + 12, gameChar_y - 45, 3, 10);
-
-	}
-	else
+	} else
 	{
-		// add your standing front facing code
+		// standing front facing code
 		// body
 		fill(50, 350, 400);
 		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -295,21 +275,21 @@ function draw()
 		rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
 
 	}
-	
 	pop();
 
+	// text for score
 	fill(255);
 	noStroke();
 	text("score: " + game_score, 20, 20);
-
-	
-
+	// text for lives
+	fill(255);
+	noStroke();
+	text("lives: " + lives, 20, 40);
 }
 
 
 function keyPressed()
 {
-	// if statements to control the animation of the character when
 	// keys are pressed.
 	if( isPlummeting == false)
 	{
@@ -330,14 +310,12 @@ function keyPressed()
 		gameChar_y = gameChar_y - 100;
 	}
 
-	//open up the console to see how these work
 	console.log("keyPressed: " + key);
 	console.log("keyPressed: " + keyCode);
 }
 
 function keyReleased()
 {
-	// if statements to control the animation of the character when
 	// keys are released.
 	if(keyCode == 65 )
 	{
@@ -357,7 +335,6 @@ function keyReleased()
 
 	console.log("keyReleased: " + key);
 	console.log("keyReleased: " + keyCode);
-
 }
 
 function drawClouds() {
@@ -370,7 +347,6 @@ function drawClouds() {
 
 function drawTrees() {
 	for(var i = 0; i < tree_x.length; i++) {
-		//console.log(i);
 		noStroke();
 		fill(46,0,9);
 		ellipse(tree_x[i] + 20, treePos_y + 110, 10, 80);
@@ -398,14 +374,11 @@ function drawTrees() {
 function checkCollectable(t_collectable) {
 	// Calculate the distance between t_collectable and character
 	let d = dist(t_collectable.x_pos, t_collectable.y_pos, gameChar_x, gameChar_y);
-	//console.log(d);
-
 	if (30 < d && d < 32)
 	{
 		t_collectable.isFound = true;
 		game_score += 1;
 	}
-
 }
 
 function drawCollectable(t_collectable) {
@@ -414,7 +387,7 @@ function drawCollectable(t_collectable) {
 			noStroke();
 			fill(255);
 			// cube function
-			var size = t_collectable.size; //sets cube side length 
+			var size = t_collectable.size; // sets cube side length 
 			drawCube(size, t_collectable.x_pos, t_collectable.y_pos);
 		}
 
@@ -481,16 +454,16 @@ function drawMountains() {
 }
 
 function drawCube(xx, x_pos, y_pos) {
-	var dW = 30; //drawing width
-	var dH = 10; //drawing height
-	var cW = x_pos; //x coordinate for center
-	var cH = y_pos; //y coordinate for center
-	var yy = xx/2; //half of side length
-	fill(0); //sets fill color to red
+	var dW = 30; 
+	var dH = 10; 
+	var cW = x_pos; // x coordinate for center
+	var cH = y_pos; // y coordinate for center
+	var yy = xx/2; // half of side length
+	fill(0); // sets fill color to red
 	stroke(255);
-	quad (cW, cH, cW + xx, cH - yy, cW, cH - xx, cW - xx, cH - yy); //draws the top quad of a cube
-	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); //draws the right quad of a cube
-	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); //draws the left quad of a cube
+	quad (cW, cH, cW + xx, cH - yy, cW, cH - xx, cW - xx, cH - yy); // draws the top quad of a cube
+	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); // draws the right quad of a cube
+	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); // draws the left quad of a cube
   }
 
   function renderFlagpole() {
@@ -508,9 +481,6 @@ function drawCube(xx, x_pos, y_pos) {
 	{
 		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
 	}
-
-	// console.log(flagpole.isReached);
-
 	pop();
 }
 
@@ -520,13 +490,20 @@ function checkFlagpole() {
 	if( d < 5)
 	{
 		flagpole.isReached = true;
+		fill(255);
+		noStroke();
+		textSize(40);
+		text("Level complete. Press space to continue.", 300, 300);
+		startGame();
 	}
 }
 
 function checkPlayerDie() {
-	if(gameChar_y > 530)
+
+	if(gameChar_y == 531)
 	{
 		lives -= 1;
+		startGame();
 	}
 }
 
@@ -553,8 +530,20 @@ function startGame() {
 	canyons = [{x_pos: 0, y_pos: 100, width: 100},
 				{x_pos: 1050, y_pos: 100, width: 100},
 				{x_pos: 1500, y_pos: 100, width: 100}];
-	
 	game_score = 0;		
-	flagpole = { isReached: false, x_pos: 750 };
-	startGame();
+	//flagpole = { isReached: false, x_pos: 750 };
+	
+	if( lives == 0)
+	{
+		fill(255);
+		noStroke();
+		textSize(45);
+		text("Game over. Press space to continue.", -90, 300);
+		startGame();
+	}
+
+	if(flagpole.isReached == true)
+	{
+		startGame();
+	}
 }
