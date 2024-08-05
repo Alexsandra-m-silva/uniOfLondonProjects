@@ -1,3 +1,9 @@
+// Change the rocket object to use vectors instead of the x, y and thrust values. 
+
+// Add sounds to the rocket - watch the game project sound video later in the topic first.
+
+// Add a fire method to the rocket object which will shoot a bullet out of the top of the rocket (tricky).
+
 var rocket; 
 var baseLine;
 
@@ -21,26 +27,26 @@ function draw()
     //move the rocket
     if (rocket.thrust && rocket.y > 0)
 	{
-		rocket.y -= 2;
+		rocket.y -= 3;
 	}
 	else if (rocket.y < baseLine)
 	{
-		rocket.y += 3;
+		rocket.y += 4;
 	}
 
 	if (rocket.moveLeft && rocket.x > 0 && rocket.y != baseLine)
 	{
-		rocket.x -= 2;
+		rocket.x -= 3;
 	}
 
 	if (rocket.moveRight && rocket.x < width && rocket.y != baseLine)
 	{
-		rocket.x += 2;
+		rocket.x += 3;
 	}
     
     background(10);
   //draw the rocket
-    fill(180)
+    fill(135,206,235)
 beginShape();
 	vertex(rocket.x + 10, rocket.y + 60);
 	vertex(rocket.x + 10, rocket.y + 20);
