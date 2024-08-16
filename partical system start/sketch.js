@@ -1,3 +1,4 @@
+// Constructors
 function Particle(x, y, xSpeed, ySpeed, size, colour)
 {
 	this.x = x;
