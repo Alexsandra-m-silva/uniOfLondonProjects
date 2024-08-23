@@ -25,6 +25,7 @@ var canyons;
 var game_score;
 var flagpole;
 var lives;
+var platforms;
 
 
 function setup()
@@ -56,6 +57,8 @@ function setup()
 	game_score = 0;		
 	flagpole = { isReached: false, x_pos: 750 };
 	lives = 3;
+	platforms = [];
+	platforms.push(createPlatforms(100, floorPos_y - 100, 100));
 	
 }
 
@@ -99,6 +102,10 @@ function draw()
 	}
 
 	checkPlayerDie();
+
+	for(var i = 0; i < platforms.length; i++) {
+		platforms[i].draw();
+	}
 	
 	for(var i = 0; i < collectables.length; i++) {
 		if(!collectables[i].isFound) 
@@ -112,6 +119,19 @@ function draw()
 	}
 	
 	// Make character fall 
+	if(gameChar_y < floorPos_y)
+	{
+		for(var i = 0; i < platforms.length; i++)
+		{
+			platforms[i].checkContact(gameChar_x, gameChar_y);
+		}
+
+		gameChar_y += 2;
+		isFalling = true;
+	} else {
+		isFalling = false;
+	}
+
 	if(isPlummeting == true)
 	{
 		gameChar_y += 1;
@@ -546,4 +566,34 @@ function startGame() {
 	{
 		startGame();
 	}
+}
+
+function createPlatforms(x, y, length)
+{
+	var p = {
+		x: x,
+		y: y,
+		length: length,
+		draw: function() {
+			fill(255, 0, 255);
+			rect(this.x, this.y, this.length, 20);
+		},
+
+		checkContact: function(gameChar_x, gameChar_y)
+		{
+			if(gameChar_x > this.x && gameChar_x < this.x + this.length) 
+			{
+				var d = this.y - gameChar_y;
+				if(d >= 0 && d < 5)
+				{
+					console.log("Inline platform");
+					return true;
+				}
+				
+			}
+			return false;
+		}
+	}
+
+	return p;
 }
