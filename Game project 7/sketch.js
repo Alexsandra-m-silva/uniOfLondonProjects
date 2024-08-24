@@ -26,6 +26,7 @@ var game_score;
 var flagpole;
 var lives;
 var platforms;
+var enemies;
 
 
 function setup()
@@ -59,6 +60,8 @@ function setup()
 	lives = 3;
 	platforms = [];
 	platforms.push(createPlatforms(100, floorPos_y - 100, 100));
+	enemies = [];
+	enemies.push(new Enemy(400, floorPos_y - 10, 100));
 	
 }
 
@@ -121,13 +124,21 @@ function draw()
 	// Make character fall 
 	if(gameChar_y < floorPos_y)
 	{
+		var isContact = false;
 		for(var i = 0; i < platforms.length; i++)
 		{
-			platforms[i].checkContact(gameChar_x, gameChar_y);
+			if(platforms[i].checkContact(gameChar_x, gameChar_y) == true)
+			{
+				isContact = true;
+				break;
+			}
 		}
-
-		gameChar_y += 2;
-		isFalling = true;
+		if(isContact == false)
+		{
+			gameChar_y += 2;
+			isFalling = true;
+		}
+		
 	} else {
 		isFalling = false;
 	}
@@ -501,6 +512,23 @@ function drawCube(xx, x_pos, y_pos) {
 	{
 		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
 	}
+
+	for(var i = 0; i < enemies.length; i++)
+	{
+		enemies[i].draw();
+
+		var isContact = enemies[i].checkContact(gameChar_x, gameChar_y);
+
+		if(isContact)
+		{
+			if(lives > 0)
+			{
+				startGame();
+				break;
+			}
+		}
+	}
+
 	pop();
 }
 
@@ -552,6 +580,7 @@ function startGame() {
 				{x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
 	//flagpole = { isReached: false, x_pos: 750 };
+
 	
 	if( lives == 0)
 	{
@@ -594,6 +623,47 @@ function createPlatforms(x, y, length)
 			return false;
 		}
 	}
-
 	return p;
+}
+
+function Enemy(x, y, range)
+{
+	this.x = x;
+	this.y = y;
+	this.range = range;
+
+	this.currentX = x;
+	this.inc = 1;
+
+	this.update = function()
+	{
+		this.currentX += this.inc;
+
+		if(this.currentX >= this.x + this.range)
+		{
+			this.inc = -1;
+		}
+		else if(this.currentX < this.x)
+		{
+			this.inc = 1;
+		}
+	}
+
+	this.draw = function()
+	{
+		this.update();
+		fill(0, 60, 177);
+		ellipse(this.currentX, this.y, 20, 20);
+	}
+	
+	this.checkContact = function(gameChar_x, gameChar_y)
+	{
+		var d = dist(gameChar_x, gameChar_y, this.currentX, this.y);
+
+		if(d < 20)
+		{
+			return true;
+		}
+		return false;
+	}
 }
