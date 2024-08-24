@@ -1,11 +1,6 @@
 /*
-
-The Game Project
-
-Week 14
-
-Game mechanics
-
+Final Game Project
+Cyphus: Canyons of Mystery
 */
 
 var gameChar_x;
@@ -145,7 +140,7 @@ function draw()
 
 	if(isPlummeting == true)
 	{
-		gameChar_y += 1;
+		gameChar_y -= 10;
 	}
 
 	if(isLeft && isFalling)
@@ -338,7 +333,8 @@ function keyPressed()
 	if(keyCode == 87 )
 	{
 		isPlummeting = true;
-		gameChar_y = gameChar_y - 100;
+		gameChar_y = gameChar_y - 100 ;
+		console.log(gameChar_y);
 	}
 
 	console.log("keyPressed: " + key);
