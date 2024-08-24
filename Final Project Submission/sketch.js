@@ -81,7 +81,8 @@ function gameScenario()
 	cameraPosX = gameChar_x - 500;
 	noStroke();
 	fill(229,66,45);
-	background(0); // fill the sky orange
+	background(3, 76, 102); // fill the sky 
+	fill(141, 92, 0);
 	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
 	push();
 	translate(-cameraPosX, 0);
@@ -90,10 +91,14 @@ function gameScenario()
 	ellipse(500, 170, 40, 40);
 	// Mountain
 	drawMountains();
-	// tree
+	// Tree
 	drawTrees();
-	
-	
+	// Canyons
+	for(var i = 0; i < canyons.length; i++) {
+		drawCanyon(canyons[i]);
+		// Check if character is over the canyon x-axis
+		//checkCanyon(canyons[i]);
+	}
 }
 
 function drawMountains()
@@ -155,4 +160,16 @@ function drawTrees() {
 		noStroke();
 		circle(tree_x[i] + 20, treePos_y + 60, 60); 
 	}
+}
+
+function drawCanyon(t_canyon) {
+	fill(229,66,45);
+	noStroke();
+	rect(t_canyon.x_pos, t_canyon.y_pos + 332, t_canyon.width - 30, 150);
+	rect(t_canyon.x_pos + 70, t_canyon.y_pos + 370, t_canyon.width - 50, 100);
+	rect(t_canyon.x_pos + 105, t_canyon.y_pos + 390, t_canyon.width - 60, 70);
+
+	rect(t_canyon.x_pos + 250, t_canyon.y_pos + 332, t_canyon.width, 170);
+	rect(t_canyon.x_pos + 220, t_canyon.y_pos + 370, t_canyon.width - 70, 100);
+	rect(t_canyon.x_pos + 210, t_canyon.y_pos + 390, t_canyon.width, 70);
 }
