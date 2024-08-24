@@ -72,7 +72,6 @@ function draw()
 		recurseClouds(700, 100, 50);
 		hasRecurseBeenCalled = true;
 	}
-		
 }
 
 function gameScenario() 
@@ -94,16 +93,29 @@ function gameScenario()
 	// Tree
 	drawTrees();
 	// Canyons
-	for(var i = 0; i < canyons.length; i++) {
+	for(var i = 0; i < canyons.length; i++) 
+	{
 		drawCanyon(canyons[i]);
 		// Check if character is over the canyon x-axis
 		//checkCanyon(canyons[i]);
+	}
+	// Collectables
+	for(var i = 0; i < collectables.length; i++) 
+	{
+		if(!collectables[i].isFound) 
+		{
+			// collectable token 
+			drawCollectable(collectables[i]);
+			// check collectable
+			//checkCollectable(collectables[i]);
+		}
 	}
 }
 
 function drawMountains()
 {
-	for( var i = 0; i < mountain.length; i++) {
+	for( var i = 0; i < mountain.length; i++) 
+	{
 		noStroke();
 		fill(102,56,63);
 		// Brown triangle
@@ -140,7 +152,8 @@ function recurseClouds(x, y, scale)
 	recurseClouds(x - scale/2,y + random(-scale/2,scale/2),scale * 0.75);
 }
 
-function drawTrees() {
+function drawTrees() 
+{
 	for(var i = 0; i < tree_x.length; i++) {
 		noStroke();
 		fill(46,0,9);
@@ -162,7 +175,8 @@ function drawTrees() {
 	}
 }
 
-function drawCanyon(t_canyon) {
+function drawCanyon(t_canyon) 
+{
 	fill(229,66,45);
 	noStroke();
 	rect(t_canyon.x_pos, t_canyon.y_pos + 332, t_canyon.width - 30, 150);
@@ -172,4 +186,30 @@ function drawCanyon(t_canyon) {
 	rect(t_canyon.x_pos + 250, t_canyon.y_pos + 332, t_canyon.width, 170);
 	rect(t_canyon.x_pos + 220, t_canyon.y_pos + 370, t_canyon.width - 70, 100);
 	rect(t_canyon.x_pos + 210, t_canyon.y_pos + 390, t_canyon.width, 70);
+}
+
+function drawCollectable(t_collectable) 
+{
+	if(t_collectable.isFound == false)
+		{
+			noStroke();
+			fill(255);
+			// cube function
+			var size = t_collectable.size; // sets cube side length 
+			drawCube(size, t_collectable.x_pos, t_collectable.y_pos);
+		}
+}
+
+function drawCube(xx, x_pos, y_pos) 
+{
+	var dW = 30; 
+	var dH = 10; 
+	var cW = x_pos; // x coordinate for center
+	var cH = y_pos; // y coordinate for center
+	var yy = xx/2; // half of side length
+	fill(0); // sets fill color to red
+	stroke(255);
+	quad (cW, cH, cW + xx, cH - yy, cW, cH - xx, cW - xx, cH - yy); // draws the top quad of a cube
+	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); // draws the right quad of a cube
+	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); // draws the left quad of a cube
 }
