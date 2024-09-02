@@ -72,6 +72,36 @@ function draw()
 		recurseClouds(700, 100, 50);
 		hasRecurseBeenCalled = true;
 	}
+	// Text for score
+	fill(255);
+	noStroke();
+	text("score: " + game_score, 20, 20);
+	// Text for lives
+	fill(255);
+	noStroke();
+	text("lives: " + lives, 20, 40);
+	// standing front facing code
+		// body
+		fill(50, 350, 400);
+		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+
+		// legs
+		fill(350, 0, 0);
+		rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
+		rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
+
+		// eyes
+		fill(350, 0, 400);
+		stroke(10);
+		ellipse(gameChar_x, gameChar_y - 45, 18, 10);
+		noStroke();
+		fill(400, 300, 400);
+		ellipse(gameChar_x, gameChar_y - 45, 4, 8);
+
+		// arms
+		fill(350, 0, 0);
+		rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
+		rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
 }
 
 function gameScenario() 
@@ -80,7 +110,7 @@ function gameScenario()
 	cameraPosX = gameChar_x - 500;
 	noStroke();
 	fill(229,66,45);
-	background(3, 76, 102); // fill the sky 
+	background(0); // fill the sky 
 	fill(141, 92, 0);
 	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
 	push();
@@ -213,3 +243,4 @@ function drawCube(xx, x_pos, y_pos)
 	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); // draws the right quad of a cube
 	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); // draws the left quad of a cube
 }
+

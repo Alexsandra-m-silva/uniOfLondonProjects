@@ -417,7 +417,6 @@ function drawCollectable(t_collectable) {
 			var size = t_collectable.size; // sets cube side length 
 			drawCube(size, t_collectable.x_pos, t_collectable.y_pos);
 		}
-
 }
 
 function drawCanyon(t_canyon) {
