@@ -65,7 +65,7 @@ function draw()
 	cameraPosX = gameChar_x - 500;
 	noStroke();
 	fill(229,66,45);
-	background(251,184,79); // fill the sky orange
+	background(251,184,79,1); // fill the sky orange
 	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
 	push();
 	translate(-cameraPosX, 0);

@@ -29,12 +29,12 @@ function setup()
 {
 	createCanvas(1420, 576);
 	floorPos_y = height * 3/4;
-	//gameChar_x = width/2;
-	//gameChar_y = floorPos_y;
-	//isLeft = false;
-	//isRight = false;
-	//isFalling = false;
-	//isPlummeting = false;
+	gameChar_x = width/2;
+	gameChar_y = floorPos_y;
+	isLeft = false;
+	isRight = false;
+	isFalling = false;
+	isPlummeting = false;
 	tree_x = [width/2, width/2 + 50, width/2 + 100, 
 			  width/2 + 150, width/2 + 200];
 	treePos_y = height/2; 
@@ -57,21 +57,24 @@ function setup()
 	//platforms.push(createPlatforms(100, floorPos_y - 100, 100));
 	//enemies = [];
 	//enemies.push(new Enemy(400, floorPos_y - 10, 100));
-	
 }
 
 function draw() 
 {
-	// Draw game screnario and recursive clouds
+	 
+	// Draw recursive clouds
 	if (hasRecurseBeenCalled == false) 
 	{
-		gameScenario();
+		background(0); // fill the sky
 		recurseClouds(300, 100, 50);
 		recurseClouds(500, 100, 50);
 		recurseClouds(600, 100, 50);
 		recurseClouds(700, 100, 50);
 		hasRecurseBeenCalled = true;
-	}
+	} 
+	
+	// Draw game scenario and character
+	gameScenario();
 	// Text for score
 	fill(255);
 	noStroke();
@@ -80,39 +83,65 @@ function draw()
 	fill(255);
 	noStroke();
 	text("lives: " + lives, 20, 40);
-	// standing front facing code
-		// body
-		fill(50, 350, 400);
-		triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+}
 
-		// legs
-		fill(350, 0, 0);
-		rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
-		rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
+function keyPressed()
+{
+	// keys are pressed.
+	if(isPlummeting == false)
+	{
+		if(keyCode == 65 )
+		{
+			isLeft = true;
+		}
+		
+		if(keyCode == 68 )
+		{
+			isRight = true;
+		}
+	}
 
-		// eyes
-		fill(350, 0, 400);
-		stroke(10);
-		ellipse(gameChar_x, gameChar_y - 45, 18, 10);
-		noStroke();
-		fill(400, 300, 400);
-		ellipse(gameChar_x, gameChar_y - 45, 4, 8);
+	if(keyCode == 87 )
+	{
+		isPlummeting = true;
+		gameChar_y = gameChar_y - 100;
+		console.log(gameChar_y);
+	}
+	console.log("keyPressed: " + key);
+	console.log("keyPressed: " + keyCode);
+}
 
-		// arms
-		fill(350, 0, 0);
-		rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
-		rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
+function keyReleased()
+{
+	// keys are released.
+	if(keyCode == 65 )
+	{
+		isLeft = false;
+	}
+	
+	if(keyCode == 68 )
+	{
+		isRight = false;
+	}
+
+	if(keyCode == 87 )
+	{
+		isPlummeting = false;
+		gameChar_y = gameChar_y + 100;
+	}
+
+	console.log("keyReleased: " + key);
+	console.log("keyReleased: " + keyCode);
 }
 
 function gameScenario() 
 {
-	// Scroll and background
-	cameraPosX = gameChar_x - 500;
+	// Scroll 
+	cameraPosX = gameChar_x - 700;
 	noStroke();
 	fill(229,66,45);
-	background(0); // fill the sky 
-	fill(141, 92, 0);
-	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
+	fill(4, 186, 22);
+	rect(0, floorPos_y, width, height - floorPos_y); // draw some green ground
 	push();
 	translate(-cameraPosX, 0);
 	// Sun 
@@ -140,6 +169,193 @@ function gameScenario()
 			//checkCollectable(collectables[i]);
 		}
 	}
+	// Game Character 
+	// Make character fall 
+	if(gameChar_y < floorPos_y)
+		{
+			var isContact = false;
+			for(var i = 0; i < platforms.length; i++)
+			{
+				if(platforms[i].checkContact(gameChar_x, gameChar_y) == true)
+				{
+					isContact = true;
+					break;
+				}
+			}
+			if(isContact == false)
+			{
+				gameChar_y += 2;
+				isFalling = true;
+			}
+			
+		} else {
+			isFalling = false;
+		}
+	
+		if(isPlummeting == true)
+		{
+			gameChar_y -= 10;
+		}
+	
+		if(isLeft && isFalling)
+		{
+			// jumping-left code
+			// body
+			fill(50, 350, 400);
+			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+	
+			// arms
+			fill(350, 0, 0);
+			rect(gameChar_x - 11, gameChar_y - 55, 3, 12);
+			rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
+			
+			// legs
+			fill(350, 0, 0);
+			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
+			rect(gameChar_x - 5, gameChar_y - 13, 3, 10);
+			rect(gameChar_x, gameChar_y - 20, 3, 10);
+			rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
+			
+			// eyes
+			fill(350, 0, 400);
+			stroke(5);
+			ellipse(gameChar_x - 8, gameChar_y - 45, 6, 10);
+			noStroke();
+			fill(400, 300, 400);
+			ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
+		}
+	
+		else if(isRight && isFalling)
+		{
+			// jumping-right code
+			// body
+			fill(50, 350, 400);
+			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+	
+			// arms
+			fill(350, 0, 0);
+			rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
+			rect(gameChar_x + 10, gameChar_y - 55, 3, 12);
+	
+			// legs
+			fill(350, 0, 0);
+			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
+			rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
+			rect(gameChar_x, gameChar_y - 20, 3, 10);
+			rect(gameChar_x - 3, gameChar_y - 13, 3, 10);
+			
+			// eyes
+			fill(350, 0, 400);
+			stroke(5);
+			ellipse(gameChar_x + 8, gameChar_y - 45, 6, 10);
+			noStroke();
+			fill(400, 300, 400);
+			ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
+		} else if(isLeft)
+		{
+			// walking left code
+			gameChar_x -= 4;
+			// body
+			fill(50, 350, 400);
+			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+	
+			// arms
+			fill(350, 0, 0);
+			rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
+	
+			// legs
+			fill(350, 0, 0);
+			rect(gameChar_x - 8, gameChar_y - 20, 3, 20);
+			rect(gameChar_x, gameChar_y - 20, 3, 10);
+			rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
+	
+			// eyes
+			fill(350, 0, 400);
+			stroke(5);
+			ellipse(gameChar_x - 8, gameChar_y - 45, 6, 10);
+			noStroke();
+			fill(400, 300, 400);
+			ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
+		}
+	
+		else if(isRight)
+		{
+			// walking right code
+			gameChar_x += 4;
+			// body
+			fill(50, 350, 400);
+			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+	
+			// arms
+			fill(350, 0, 0);
+			rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
+	
+			// legs
+			fill(350, 0, 0);
+			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
+			rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
+			rect(gameChar_x, gameChar_y - 20, 3, 20);
+			
+			// eyes
+			fill(350, 0, 400);
+			stroke(5);
+			ellipse(gameChar_x + 8, gameChar_y - 45, 6, 10);
+			noStroke();
+			fill(400, 300, 400);
+			ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
+		} else if(isFalling || isPlummeting)
+		{
+			// jumping facing forwards code
+			// body
+			fill(50, 350, 400);
+			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+	
+			// legs
+			fill(350, 0, 0);
+			rect(gameChar_x - 13, gameChar_y - 20, 3, 10);
+			rect(gameChar_x - 14, gameChar_y - 13, 3, 10);
+			rect(gameChar_x + 10, gameChar_y - 20, 3, 10);
+			rect(gameChar_x + 9, gameChar_y - 13, 3, 10);
+	
+			// eyes
+			fill(350, 0, 400);
+			stroke(10);
+			ellipse(gameChar_x, gameChar_y - 45, 18, 10);
+			noStroke();
+			fill(400, 300, 400);
+			ellipse(gameChar_x, gameChar_y - 45, 4, 8);
+	
+			// arms
+			fill(350, 0, 0);
+			rect(gameChar_x - 15, gameChar_y - 45, 3, 10);
+			rect(gameChar_x + 12, gameChar_y - 45, 3, 10);
+		} else
+		{
+			// standing front facing code
+			// body
+			fill(50, 350, 400);
+			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
+	
+			// legs
+			fill(350, 0, 0);
+			rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
+			rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
+	
+			// eyes
+			fill(350, 0, 400);
+			stroke(10);
+			ellipse(gameChar_x, gameChar_y - 45, 18, 10);
+			noStroke();
+			fill(400, 300, 400);
+			ellipse(gameChar_x, gameChar_y - 45, 4, 8);
+	
+			// arms
+			fill(350, 0, 0);
+			rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
+			rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
+	
+		}
+		pop();
 }
 
 function drawMountains()
@@ -175,7 +391,7 @@ function recurseClouds(x, y, scale)
 	{
 		return;
 	}
-	fill(51, 287, 255, 50);
+	fill(51, 287, 255, 90);
 	noStroke();
 	ellipse(x,y,scale);
 	recurseClouds(x + scale/2,y + random(-scale/2,scale/2),scale * 0.75);
@@ -188,7 +404,7 @@ function drawTrees()
 		noStroke();
 		fill(46,0,9);
 		ellipse(tree_x[i] + 20, treePos_y + 110, 10, 80);
-		fill(0,random(0,255),0);
+		fill(0,200,0);
 		stroke(5);
 		// corner ellipses
 		ellipse(tree_x[i], treePos_y + 45, 30, 15);
