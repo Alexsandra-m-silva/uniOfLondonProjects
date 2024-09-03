@@ -65,7 +65,7 @@ function draw()
 	cameraPosX = gameChar_x - 500;
 	noStroke();
 	fill(229,66,45);
-	background(251,184,79,1); // fill the sky orange
+	background(251,184,79); // fill the sky orange
 	rect(0, floorPos_y, width, height - floorPos_y); // draw some orange ground
 	push();
 	translate(-cameraPosX, 0);
@@ -441,7 +441,7 @@ function checkCanyon(t_canyon) {
 	if(gameChar_x > t_canyon.x_pos + 70 && gameChar_x < t_canyon.x_pos + 20 + t_canyon.width ||
 		gameChar_x > t_canyon.x_pos + 220 && gameChar_x < t_canyon.x_pos + 150 + t_canyon.width)
 	{
-		gameChar_y = t_canyon.y_pos + 370;
+		gameChar_y = t_canyon.y_pos + 10;
 	}
 	
 	if(gameChar_x > (t_canyon.x_pos + 60 + t_canyon.width) && gameChar_x < (t_canyon.x_pos + 210))
@@ -510,18 +510,18 @@ function drawCube(xx, x_pos, y_pos) {
 
 	for(var i = 0; i < enemies.length; i++)
 	{
-		enemies[i].draw();
+		//enemies[i].draw();
 
-		var isContact = enemies[i].checkContact(gameChar_x, gameChar_y);
+		//var isContact = enemies[i].checkContact(gameChar_x, gameChar_y);
 
-		if(isContact)
+		/*if(isContact)
 		{
 			if(lives > 0)
 			{
 				startGame();
 				break;
 			}
-		}
+		}*/
 	}
 
 	pop();

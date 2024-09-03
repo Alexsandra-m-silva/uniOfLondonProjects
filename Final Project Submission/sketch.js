@@ -60,12 +60,10 @@ function setup()
 }
 
 function draw() 
-{
-	 
+{ 
 	// Draw recursive clouds
 	if (hasRecurseBeenCalled == false) 
 	{
-		background(0); // fill the sky
 		recurseClouds(300, 100, 50);
 		recurseClouds(500, 100, 50);
 		recurseClouds(600, 100, 50);
@@ -138,6 +136,7 @@ function gameScenario()
 {
 	// Scroll 
 	cameraPosX = gameChar_x - 700;
+	background(0); // fill the sky - error with clouds are here
 	noStroke();
 	fill(229,66,45);
 	fill(4, 186, 22);
@@ -156,7 +155,7 @@ function gameScenario()
 	{
 		drawCanyon(canyons[i]);
 		// Check if character is over the canyon x-axis
-		//checkCanyon(canyons[i]);
+		checkCanyon(canyons[i]);
 	}
 	// Collectables
 	for(var i = 0; i < collectables.length; i++) 
@@ -432,6 +431,25 @@ function drawCanyon(t_canyon)
 	rect(t_canyon.x_pos + 250, t_canyon.y_pos + 332, t_canyon.width, 170);
 	rect(t_canyon.x_pos + 220, t_canyon.y_pos + 370, t_canyon.width - 70, 100);
 	rect(t_canyon.x_pos + 210, t_canyon.y_pos + 390, t_canyon.width, 70);
+}
+
+function checkCanyon(t_canyon) { 
+	if(gameChar_x > t_canyon.x_pos && gameChar_x < t_canyon.x_pos + t_canyon.width ||
+		gameChar_x > t_canyon.x_pos + 250 && gameChar_x < t_canyon.x_pos + 250 + t_canyon.width)
+	{
+		gameChar_y = floorPos_y;
+	}
+
+	if(gameChar_x > t_canyon.x_pos + 70 && gameChar_x < t_canyon.x_pos + 20 + t_canyon.width ||
+		gameChar_x > t_canyon.x_pos + 220 && gameChar_x < t_canyon.x_pos + 150 + t_canyon.width)
+	{
+		gameChar_y = t_canyon.y_pos + 370;
+	}
+	
+	if(gameChar_x > (t_canyon.x_pos + 60 + t_canyon.width) && gameChar_x < (t_canyon.x_pos + 210))
+	{
+		isPlummeting = true;
+	}
 }
 
 function drawCollectable(t_collectable) 
