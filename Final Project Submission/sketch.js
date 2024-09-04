@@ -50,7 +50,7 @@ function setup()
 				{x_pos: 1050, y_pos: 100, width: 100},
 				{x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
-	//flagpole = { isReached: false, x_pos: 750 };
+	flagpole = { isReached: false, x_pos: 1780 };
 	lives = 3;
 	hasRecurseBeenCalled = false;
 	//platforms = [];
@@ -102,7 +102,7 @@ function keyPressed()
 	if(keyCode == 87 )
 	{
 		isPlummeting = true;
-		gameChar_y = gameChar_y - 100;
+		gameChar_y = gameChar_y - 200;
 		console.log(gameChar_y);
 	}
 	console.log("keyPressed: " + key);
@@ -125,7 +125,7 @@ function keyReleased()
 	if(keyCode == 87 )
 	{
 		isPlummeting = false;
-		gameChar_y = gameChar_y + 100;
+		gameChar_y = floorPos_y;
 	}
 
 	console.log("keyReleased: " + key);
@@ -157,6 +157,13 @@ function gameScenario()
 		// Check if character is over the canyon x-axis
 		checkCanyon(canyons[i]);
 	}
+	// draw flagpole
+	renderFlagpole();
+	// check Flagpole
+	if(flagpole.isReached == false)
+		{
+			checkFlagpole();
+		}
 	// Collectables
 	for(var i = 0; i < collectables.length; i++) 
 	{
@@ -165,14 +172,15 @@ function gameScenario()
 			// collectable token 
 			drawCollectable(collectables[i]);
 			// check collectable
-			//checkCollectable(collectables[i]);
+			checkCollectable(collectables[i]);
 		}
 	}
+	checkPlayerDie();
 	// Game Character 
 	// Make character fall 
 	if(gameChar_y < floorPos_y)
 		{
-			var isContact = false;
+			/*var isContact = false;
 			for(var i = 0; i < platforms.length; i++)
 			{
 				if(platforms[i].checkContact(gameChar_x, gameChar_y) == true)
@@ -185,7 +193,7 @@ function gameScenario()
 			{
 				gameChar_y += 2;
 				isFalling = true;
-			}
+			}*/
 			
 		} else {
 			isFalling = false;
@@ -193,7 +201,12 @@ function gameScenario()
 	
 		if(isPlummeting == true)
 		{
-			gameChar_y -= 10;
+			if(gameChar_y > floorPos_y) {
+				gameChar_y = floorPos_y;
+			} else {
+				gameChar_y += 10;
+				console.log(gameChar_y);
+			}
 		}
 	
 		if(isLeft && isFalling)
@@ -357,6 +370,38 @@ function gameScenario()
 		pop();
 }
 
+function renderFlagpole() {
+	push();
+	strokeWeight(5);
+	stroke(100);
+	line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 240);
+	fill(255,0,255);
+	noStroke();
+
+	if(flagpole.isReached) 
+	{
+		rect(flagpole.x_pos, floorPos_y - 50, 50,50);
+	} else 
+	{
+		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
+	}
+	pop();
+}
+
+function checkFlagpole() {
+	var d = abs(gameChar_x - flagpole.x_pos);
+	
+	if( d < 5)
+	{
+		flagpole.isReached = true;
+		fill(255);
+		noStroke();
+		textSize(40);
+		text("Level complete. Press space to continue.", width/2, 300);
+		startGame();
+	}
+}
+
 function drawMountains()
 {
 	for( var i = 0; i < mountain.length; i++) 
@@ -427,7 +472,6 @@ function drawCanyon(t_canyon)
 	rect(t_canyon.x_pos, t_canyon.y_pos + 332, t_canyon.width - 30, 150);
 	rect(t_canyon.x_pos + 70, t_canyon.y_pos + 370, t_canyon.width - 50, 100);
 	rect(t_canyon.x_pos + 105, t_canyon.y_pos + 390, t_canyon.width - 60, 70);
-
 	rect(t_canyon.x_pos + 250, t_canyon.y_pos + 332, t_canyon.width, 170);
 	rect(t_canyon.x_pos + 220, t_canyon.y_pos + 370, t_canyon.width - 70, 100);
 	rect(t_canyon.x_pos + 210, t_canyon.y_pos + 390, t_canyon.width, 70);
@@ -437,18 +481,24 @@ function checkCanyon(t_canyon) {
 	if(gameChar_x > t_canyon.x_pos && gameChar_x < t_canyon.x_pos + t_canyon.width ||
 		gameChar_x > t_canyon.x_pos + 250 && gameChar_x < t_canyon.x_pos + 250 + t_canyon.width)
 	{
-		gameChar_y = floorPos_y;
+		if(isPlummeting == false) {
+			gameChar_y = floorPos_y;
+		}
 	}
 
 	if(gameChar_x > t_canyon.x_pos + 70 && gameChar_x < t_canyon.x_pos + 20 + t_canyon.width ||
 		gameChar_x > t_canyon.x_pos + 220 && gameChar_x < t_canyon.x_pos + 150 + t_canyon.width)
 	{
-		gameChar_y = t_canyon.y_pos + 370;
+		if(isPlummeting == false) {
+			gameChar_y = t_canyon.y_pos + 370;
+		}
 	}
 	
 	if(gameChar_x > (t_canyon.x_pos + 60 + t_canyon.width) && gameChar_x < (t_canyon.x_pos + 210))
 	{
-		isPlummeting = true;
+		if(isPlummeting == false) {
+			gameChar_y = gameChar_y += 10;
+		}
 	}
 }
 
@@ -464,6 +514,16 @@ function drawCollectable(t_collectable)
 		}
 }
 
+function checkCollectable(t_collectable) {
+	// Calculate the distance between t_collectable and character
+	let d = dist(t_collectable.x_pos, t_collectable.y_pos, gameChar_x, gameChar_y);
+	if (30 < d && d < 32)
+	{
+		t_collectable.isFound = true;
+		game_score += 1;
+	}
+}
+
 function drawCube(xx, x_pos, y_pos) 
 {
 	var dW = 30; 
@@ -476,5 +536,55 @@ function drawCube(xx, x_pos, y_pos)
 	quad (cW, cH, cW + xx, cH - yy, cW, cH - xx, cW - xx, cH - yy); // draws the top quad of a cube
 	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); // draws the right quad of a cube
 	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); // draws the left quad of a cube
+}
+
+function checkPlayerDie() {
+
+	if(gameChar_y > 531)
+	{
+		lives -= 1;
+		startGame();
+	}
+}
+
+function startGame() {
+	gameChar_x = width/2;
+	gameChar_y = floorPos_y;
+	isLeft = false;
+	isRight = false;
+	isFalling = false;
+	isPlummeting = false;
+	tree_x = [width/2, width/2 + 50, width/2 + 100, 
+			  width/2 + 150, width/2 + 200];
+	treePos_y = height/2; 
+	cloud = [{x: 190, size: 60}, {x: 230, size: 70}, {x: 270, size: 60},
+			 {x: 550, size: 40}, {x: 580, size: 50}, {x: 600, size: 40}];
+	mountain = [{x_pos: 570, y_pos: 432, height:-302},
+				{x_pos: 510, y_pos: 432, height:-392},
+				{x_pos: 600, y_pos: 432, height:-302},
+				{x_pos: 650, y_pos: 432, height:-252}];
+	cameraPosX = 0;
+	collectables = [{x_pos: 100, y_pos: 440, size: 15, isFound: false},
+					{x_pos: 300, y_pos: floorPos_y - 30, size: 15, isFound: false},
+					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false}];
+	canyons = [{x_pos: 0, y_pos: 100, width: 100},
+				{x_pos: 1050, y_pos: 100, width: 100},
+				{x_pos: 1500, y_pos: 100, width: 100}];
+	game_score = 0;		
+	flagpole = { isReached: false, x_pos: 1780 };
+	
+	if( lives == 0)
+	{
+		fill(255);
+		noStroke();
+		textSize(45);
+		text("Game over. Press space to continue.", width/2 + 50 , 300);
+		startGame();
+	}
+
+	if(flagpole.isReached == true)
+	{
+		startGame();
+	}
 }
 
