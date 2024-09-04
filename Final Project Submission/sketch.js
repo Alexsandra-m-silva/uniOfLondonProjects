@@ -23,6 +23,7 @@ var lives;
 var platforms;
 var enemies;
 var hasRecurseBeenCalled;
+var isContact;
 
 // Game Setup
 function setup()
@@ -35,6 +36,7 @@ function setup()
 	isRight = false;
 	isFalling = false;
 	isPlummeting = false;
+	isContact = false;
 	tree_x = [width/2, width/2 + 50, width/2 + 100, 
 			  width/2 + 150, width/2 + 200];
 	treePos_y = height/2; 
@@ -43,20 +45,22 @@ function setup()
 				{x_pos: 600, y_pos: 432, height:-302},
 				{x_pos: 650, y_pos: 432, height:-252}];
 	cameraPosX = 0;
-	collectables = [{x_pos: 100, y_pos: 440, size: 15, isFound: false},
-					{x_pos: 300, y_pos: floorPos_y - 30, size: 15, isFound: false},
-					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false}];
-	canyons = [{x_pos: 0, y_pos: 100, width: 100},
-				{x_pos: 1050, y_pos: 100, width: 100},
+	collectables = [{x_pos: 1142, y_pos: 440, size: 15, isFound: false},
+					{x_pos: 840, y_pos: floorPos_y - 30, size: 15, isFound: false},
+					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false},
+					{x_pos: 1420, y_pos: floorPos_y - 140, size: 15, isFound: false}];
+	canyons = [{x_pos: 1050, y_pos: 100, width: 100},
 				{x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
 	flagpole = { isReached: false, x_pos: 1780 };
 	lives = 3;
 	hasRecurseBeenCalled = false;
-	//platforms = [];
-	//platforms.push(createPlatforms(100, floorPos_y - 100, 100));
-	//enemies = [];
-	//enemies.push(new Enemy(400, floorPos_y - 10, 100));
+	platforms = [];
+	platforms.push(createPlatforms(1000, floorPos_y - 100, 50));
+	platforms.push(createPlatforms(1400, floorPos_y - 100, 50));
+	enemies = [];
+	enemies.push(new Enemy(900, floorPos_y - 10, 100));
+	enemies.push(new Enemy(1400, floorPos_y - 10, 50));
 }
 
 function draw() 
@@ -101,8 +105,13 @@ function keyPressed()
 
 	if(keyCode == 87 )
 	{
+		if(isContact == true)
+			{
+				gameChar_y = floorPos_y - 100;
+			} else {
+				gameChar_y = gameChar_y - 200;
+			}
 		isPlummeting = true;
-		gameChar_y = gameChar_y - 200;
 		console.log(gameChar_y);
 	}
 	console.log("keyPressed: " + key);
@@ -125,7 +134,15 @@ function keyReleased()
 	if(keyCode == 87 )
 	{
 		isPlummeting = false;
-		gameChar_y = floorPos_y;
+		if(isContact == true)
+		{
+			gameChar_y = floorPos_y - 100;
+		} else {
+			gameChar_y = floorPos_y;
+		}
+		
+		
+		
 	}
 
 	console.log("keyReleased: " + key);
@@ -176,24 +193,33 @@ function gameScenario()
 		}
 	}
 	checkPlayerDie();
+	// Platforms
+	for(var i = 0; i < platforms.length; i++) {
+		platforms[i].draw();
+	}
 	// Game Character 
 	// Make character fall 
 	if(gameChar_y < floorPos_y)
 		{
-			/*var isContact = false;
+			
 			for(var i = 0; i < platforms.length; i++)
 			{
 				if(platforms[i].checkContact(gameChar_x, gameChar_y) == true)
 				{
 					isContact = true;
+					gameChar_y = floorPos_y - 100;
+					isPlummeting = false;
+					isFalling = false;
 					break;
+				} else {
+					isContact = false;
 				}
 			}
 			if(isContact == false)
 			{
 				gameChar_y += 2;
 				isFalling = true;
-			}*/
+			}
 			
 		} else {
 			isFalling = false;
@@ -211,6 +237,7 @@ function gameScenario()
 	
 		if(isLeft && isFalling)
 		{
+			gameChar_x -= 5;
 			// jumping-left code
 			// body
 			fill(50, 350, 400);
@@ -239,6 +266,8 @@ function gameScenario()
 	
 		else if(isRight && isFalling)
 		{
+			// walking right code
+			gameChar_x += 5;
 			// jumping-right code
 			// body
 			fill(50, 350, 400);
@@ -266,7 +295,7 @@ function gameScenario()
 		} else if(isLeft)
 		{
 			// walking left code
-			gameChar_x -= 4;
+			gameChar_x -= 5;
 			// body
 			fill(50, 350, 400);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -293,7 +322,7 @@ function gameScenario()
 		else if(isRight)
 		{
 			// walking right code
-			gameChar_x += 4;
+			gameChar_x += 5;
 			// body
 			fill(50, 350, 400);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
@@ -385,6 +414,31 @@ function renderFlagpole() {
 	{
 		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
 	}
+
+	for(var i = 0; i < enemies.length; i++)
+		{
+			enemies[i].draw();
+	
+			var isContact = enemies[i].checkContact(gameChar_x, gameChar_y);
+	
+			if(isContact)
+			{
+				if(lives > 0)
+				{
+					startGame();
+					break;
+				}
+
+				if( lives == 0)
+				{
+					fill(255);
+					noStroke();
+					textSize(45);
+					text("Game over. Press space to continue.", width/2 + 50 , 300);
+					startGame();
+				}
+			}
+		}
 	pop();
 }
 
@@ -397,7 +451,7 @@ function checkFlagpole() {
 		fill(255);
 		noStroke();
 		textSize(40);
-		text("Level complete. Press space to continue.", width/2, 300);
+		text("Level complete. Press space to continue.", width, 300);
 		startGame();
 	}
 }
@@ -571,7 +625,7 @@ function startGame() {
 				{x_pos: 1050, y_pos: 100, width: 100},
 				{x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
-	flagpole = { isReached: false, x_pos: 1780 };
+	//flagpole = { isReached: false, x_pos: 1780 };
 	
 	if( lives == 0)
 	{
@@ -585,6 +639,77 @@ function startGame() {
 	if(flagpole.isReached == true)
 	{
 		startGame();
+	}
+}
+
+function createPlatforms(x, y, length)
+{
+	var p = {
+		x: x,
+		y: y,
+		length: length,
+		draw: function() {
+			fill(255, 0, 255);
+			rect(this.x, this.y, this.length, 20);
+		},
+
+		checkContact: function(gameChar_x, gameChar_y)
+		{
+			if(gameChar_x > this.x && gameChar_x < this.x + this.length) 
+			{
+				var d = this.y - gameChar_y;
+				if(d >= 0 && d < 15)
+				{
+					console.log("Inline platform");
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	return p;
+}
+
+function Enemy(x, y, range)
+{
+	this.x = x;
+	this.y = y;
+	this.range = range;
+
+	this.currentX = x;
+	this.inc = 1;
+
+	this.update = function()
+	{
+		this.currentX += this.inc;
+
+		if(this.currentX >= this.x + this.range)
+		{
+			this.inc = -1;
+		}
+		else if(this.currentX < this.x)
+		{
+			this.inc = 1;
+		}
+	}
+
+	this.draw = function()
+	{
+		this.update();
+		fill(0, 60, 177);
+		ellipse(this.currentX, this.y, 20, 20);
+	}
+	
+	this.checkContact = function(gameChar_x, gameChar_y)
+	{
+		var d = dist(gameChar_x, gameChar_y, this.currentX, this.y);
+
+		if(d < 20)
+		{
+			lives -= 1;
+			return true;
+		}
+		return false;
 	}
 }
 
