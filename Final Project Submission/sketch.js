@@ -24,6 +24,7 @@ var platforms;
 var enemies;
 var hasRecurseBeenCalled;
 var isContact;
+var gameCharWorld_x;
 
 // Game Setup
 function setup()
@@ -440,13 +441,13 @@ function renderFlagpole() {
 
 				if( lives == 0)
 				{
+					//fill(0);
+					//rect(0, 200, 2000, 100, 1);
 					fill(0);
-					rect(0, 200, 2000, 100,1);
-					fill(255);
 					noStroke();
 					textSize(45);
-					textAlign(CENTER, CENTER); // Center the text horizontally and vertically
-					text("Game over. Press space to continue.", width / 2 + 50, 250); // Centered text
+					gameCharWorld_x = gameChar_x;
+					text("Game over. Press space to continue.", gameCharWorld_x, 260);
 					startGame();
 				}
 			}
@@ -466,7 +467,7 @@ function checkFlagpole() {
 		fill(255);
 		noStroke();
 		textSize(45);
-		text("Level complete. Press space to continue.", width, 300);
+		text("Level complete. Press space to continue.", width, 265);
 		startGame();
 	}
 }
@@ -651,12 +652,19 @@ function startGame() {
 	
 	if( lives == 0)
 	{
-		fill(0);
-		rect(0, 200, 2000, 100,1);
-		fill(255);
+
+		//fill(0);
+		//rect(0, 200, 2000, 100,1);
+		
 		noStroke();
 		textSize(45);
-		text("Game over. Press space to continue.", width / 2 + 50, 250);
+		gameCharWorld_x = gameChar_x;
+		for(var i = 0; i < 10; i++)
+		{
+			fill(random(0,255), random(0,255), random(0,255));
+			textSize(48);
+			text("Game over. Press space to continue.", random(0,width), random(0,height));
+		}
 		startGame();
 	}
 
