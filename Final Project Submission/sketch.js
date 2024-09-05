@@ -40,10 +40,10 @@ function setup()
 	tree_x = [width/2, width/2 + 50, width/2 + 100, 
 			  width/2 + 150, width/2 + 200];
 	treePos_y = height/2; 
-	mountain = [{x_pos: 570, y_pos: 432, height:-302},
-				{x_pos: 510, y_pos: 432, height:-392},
-				{x_pos: 600, y_pos: 432, height:-302},
-				{x_pos: 650, y_pos: 432, height:-252}];
+	mountain = [{x_pos: 570, y_pos: 432, height:-202},
+				{x_pos: 510, y_pos: 432, height:-292},
+				{x_pos: 600, y_pos: 432, height:-202},
+				{x_pos: 650, y_pos: 432, height:-152}];
 	cameraPosX = 0;
 	collectables = [{x_pos: 1142, y_pos: 440, size: 15, isFound: false},
 					{x_pos: 840, y_pos: floorPos_y - 30, size: 15, isFound: false},
@@ -68,23 +68,30 @@ function draw()
 	// Draw recursive clouds
 	if (hasRecurseBeenCalled == false) 
 	{
-		recurseClouds(300, 100, 50);
-		recurseClouds(500, 100, 50);
-		recurseClouds(600, 100, 50);
-		recurseClouds(700, 100, 50);
+		recurseClouds(0, 50, 50);
+		recurseClouds(300, 50, 50);
+		recurseClouds(500, 50, 50);
+		recurseClouds(600, 50, 50);
+		recurseClouds(700, 50, 50);
+		recurseClouds(900, 50, 50);
+		recurseClouds(1000, 50, 50);
+		recurseClouds(1100, 50, 50);
+		recurseClouds(1300, 50, 50);
+		recurseClouds(1400, 50, 50);
 		hasRecurseBeenCalled = true;
 	} 
 	
 	// Draw game scenario and character
 	gameScenario();
 	// Text for score
-	fill(255);
+	textSize(25);
+	fill(0);
 	noStroke();
-	text("score: " + game_score, 20, 20);
+	text("score: " + game_score, 20, 155);
 	// Text for lives
-	fill(255);
+	fill(0);
 	noStroke();
-	text("lives: " + lives, 20, 40);
+	text("lives: " + lives, 20, 190);
 }
 
 function keyPressed()
@@ -153,7 +160,8 @@ function gameScenario()
 {
 	// Scroll 
 	cameraPosX = gameChar_x - 700;
-	background(0); // fill the sky - error with clouds are here
+	fill(255,255,255);
+	rect(0, 135, width, height + 500); 
 	noStroke();
 	fill(229,66,45);
 	fill(4, 186, 22);
@@ -161,7 +169,7 @@ function gameScenario()
 	push();
 	translate(-cameraPosX, 0);
 	// Sun 
-	fill(255);
+	fill(194, 117, 0);
 	ellipse(500, 170, 40, 40);
 	// Mountain
 	drawMountains();
@@ -431,7 +439,7 @@ function renderFlagpole() {
 
 				if( lives == 0)
 				{
-					fill(255);
+					fill(0);
 					noStroke();
 					textSize(45);
 					text("Game over. Press space to continue.", width/2 + 50 , 300);
@@ -448,7 +456,7 @@ function checkFlagpole() {
 	if( d < 5)
 	{
 		flagpole.isReached = true;
-		fill(255);
+		fill(0);
 		noStroke();
 		textSize(40);
 		text("Level complete. Press space to continue.", width, 300);
@@ -489,7 +497,8 @@ function recurseClouds(x, y, scale)
 	{
 		return;
 	}
-	fill(51, 287, 255, 90);
+	fill(6, 2, 112, 90);
+	//fill(51, 287, 255, 80);
 	noStroke();
 	ellipse(x,y,scale);
 	recurseClouds(x + scale/2,y + random(-scale/2,scale/2),scale * 0.75);
@@ -602,34 +611,41 @@ function checkPlayerDie() {
 }
 
 function startGame() {
+	floorPos_y = height * 3/4;
 	gameChar_x = width/2;
 	gameChar_y = floorPos_y;
 	isLeft = false;
 	isRight = false;
 	isFalling = false;
 	isPlummeting = false;
+	isContact = false;
 	tree_x = [width/2, width/2 + 50, width/2 + 100, 
 			  width/2 + 150, width/2 + 200];
 	treePos_y = height/2; 
-	cloud = [{x: 190, size: 60}, {x: 230, size: 70}, {x: 270, size: 60},
-			 {x: 550, size: 40}, {x: 580, size: 50}, {x: 600, size: 40}];
-	mountain = [{x_pos: 570, y_pos: 432, height:-302},
-				{x_pos: 510, y_pos: 432, height:-392},
-				{x_pos: 600, y_pos: 432, height:-302},
-				{x_pos: 650, y_pos: 432, height:-252}];
+	mountain = [{x_pos: 570, y_pos: 432, height:-202},
+				{x_pos: 510, y_pos: 432, height:-292},
+				{x_pos: 600, y_pos: 432, height:-202},
+				{x_pos: 650, y_pos: 432, height:-152}];
 	cameraPosX = 0;
-	collectables = [{x_pos: 100, y_pos: 440, size: 15, isFound: false},
-					{x_pos: 300, y_pos: floorPos_y - 30, size: 15, isFound: false},
-					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false}];
-	canyons = [{x_pos: 0, y_pos: 100, width: 100},
-				{x_pos: 1050, y_pos: 100, width: 100},
+	collectables = [{x_pos: 1142, y_pos: 440, size: 15, isFound: false},
+					{x_pos: 840, y_pos: floorPos_y - 30, size: 15, isFound: false},
+					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false},
+					{x_pos: 1420, y_pos: floorPos_y - 140, size: 15, isFound: false}];
+	canyons = [{x_pos: 1050, y_pos: 100, width: 100},
 				{x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
-	//flagpole = { isReached: false, x_pos: 1780 };
+	hasRecurseBeenCalled = false;
+	platforms = [];
+	platforms.push(createPlatforms(1000, floorPos_y - 100, 50));
+	platforms.push(createPlatforms(1400, floorPos_y - 100, 50));
+	enemies = [];
+	enemies.push(new Enemy(900, floorPos_y - 10, 100));
+	enemies.push(new Enemy(1400, floorPos_y - 10, 50));
+	
 	
 	if( lives == 0)
 	{
-		fill(255);
+		fill(0);
 		noStroke();
 		textSize(45);
 		text("Game over. Press space to continue.", width/2 + 50 , 300);
