@@ -659,7 +659,7 @@ function startGame() {
 		noStroke();
 		textSize(45);
 		gameCharWorld_x = gameChar_x;
-		for(var i = 0; i < 10; i++)
+		for(var i = 0; i < 1; i++)
 		{
 			fill(random(0,255), random(0,255), random(0,255));
 			textSize(48);
