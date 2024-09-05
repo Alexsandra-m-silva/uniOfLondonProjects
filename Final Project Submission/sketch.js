@@ -163,13 +163,13 @@ function gameScenario()
 	fill(255,255,255);
 	rect(0, 135, width, height + 500); 
 	noStroke();
-	fill(229,66,45);
-	fill(4, 186, 22);
+	//fill(229,66,45);
+	fill(37, 206, 209);
 	rect(0, floorPos_y, width, height - floorPos_y); // draw some green ground
 	push();
 	translate(-cameraPosX, 0);
 	// Sun 
-	fill(194, 117, 0);
+	fill(255, 228, 94);
 	ellipse(500, 170, 40, 40);
 	// Mountain
 	drawMountains();
@@ -248,27 +248,27 @@ function gameScenario()
 			gameChar_x -= 5;
 			// jumping-left code
 			// body
-			fill(50, 350, 400);
+			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 	
 			// arms
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 11, gameChar_y - 55, 3, 12);
 			rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
 			
 			// legs
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 5, gameChar_y - 13, 3, 10);
 			rect(gameChar_x, gameChar_y - 20, 3, 10);
 			rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
 			
 			// eyes
-			fill(350, 0, 400);
+			fill(255);
 			stroke(5);
 			ellipse(gameChar_x - 8, gameChar_y - 45, 6, 10);
 			noStroke();
-			fill(400, 300, 400);
+			fill(0);
 			ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
 		}
 	
@@ -278,52 +278,52 @@ function gameScenario()
 			gameChar_x += 5;
 			// jumping-right code
 			// body
-			fill(50, 350, 400);
+			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 	
 			// arms
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
 			rect(gameChar_x + 10, gameChar_y - 55, 3, 12);
 	
 			// legs
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
 			rect(gameChar_x, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 3, gameChar_y - 13, 3, 10);
 			
 			// eyes
-			fill(350, 0, 400);
+			fill(255);
 			stroke(5);
 			ellipse(gameChar_x + 8, gameChar_y - 45, 6, 10);
 			noStroke();
-			fill(400, 300, 400);
+			fill(0);
 			ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
 		} else if(isLeft)
 		{
 			// walking left code
 			gameChar_x -= 5;
 			// body
-			fill(50, 350, 400);
+			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 	
 			// arms
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
 	
 			// legs
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 20);
 			rect(gameChar_x, gameChar_y - 20, 3, 10);
 			rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
 	
 			// eyes
-			fill(350, 0, 400);
+			fill(255);
 			stroke(5);
 			ellipse(gameChar_x - 8, gameChar_y - 45, 6, 10);
 			noStroke();
-			fill(400, 300, 400);
+			fill(0);
 			ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
 		}
 	
@@ -332,74 +332,74 @@ function gameScenario()
 			// walking right code
 			gameChar_x += 5;
 			// body
-			fill(50, 350, 400);
+			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 	
 			// arms
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
 	
 			// legs
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
 			rect(gameChar_x, gameChar_y - 20, 3, 20);
 			
 			// eyes
-			fill(350, 0, 400);
+			fill(255);
 			stroke(5);
 			ellipse(gameChar_x + 8, gameChar_y - 45, 6, 10);
 			noStroke();
-			fill(400, 300, 400);
+			fill(0);
 			ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
 		} else if(isFalling || isPlummeting)
 		{
 			// jumping facing forwards code
 			// body
-			fill(50, 350, 400);
+			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 	
 			// legs
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 13, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 14, gameChar_y - 13, 3, 10);
 			rect(gameChar_x + 10, gameChar_y - 20, 3, 10);
 			rect(gameChar_x + 9, gameChar_y - 13, 3, 10);
 	
 			// eyes
-			fill(350, 0, 400);
+			fill(255);
 			stroke(10);
 			ellipse(gameChar_x, gameChar_y - 45, 18, 10);
 			noStroke();
-			fill(400, 300, 400);
+			fill(0);
 			ellipse(gameChar_x, gameChar_y - 45, 4, 8);
 	
 			// arms
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 15, gameChar_y - 45, 3, 10);
 			rect(gameChar_x + 12, gameChar_y - 45, 3, 10);
 		} else
 		{
 			// standing front facing code
 			// body
-			fill(50, 350, 400);
+			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
 	
 			// legs
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
 			rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
 	
 			// eyes
-			fill(350, 0, 400);
+			fill(255);
 			stroke(10);
 			ellipse(gameChar_x, gameChar_y - 45, 18, 10);
 			noStroke();
-			fill(400, 300, 400);
+			fill(0);
 			ellipse(gameChar_x, gameChar_y - 45, 4, 8);
 	
 			// arms
-			fill(350, 0, 0);
+			fill(253, 114, 114);
 			rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
 			rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
 	
@@ -412,13 +412,14 @@ function renderFlagpole() {
 	strokeWeight(5);
 	stroke(100);
 	line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 240);
-	fill(255,0,255);
+	fill(255, 0, 43);
 	noStroke();
 
 	if(flagpole.isReached) 
 	{
 		rect(flagpole.x_pos, floorPos_y - 50, 50,50);
-	} else 
+	} 
+	if(flagpole.isReached == false) 
 	{
 		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
 	}
@@ -440,9 +441,12 @@ function renderFlagpole() {
 				if( lives == 0)
 				{
 					fill(0);
+					rect(0, 200, 2000, 100,1);
+					fill(255);
 					noStroke();
 					textSize(45);
-					text("Game over. Press space to continue.", width/2 + 50 , 300);
+					textAlign(CENTER, CENTER); // Center the text horizontally and vertically
+					text("Game over. Press space to continue.", width / 2 + 50, 250); // Centered text
 					startGame();
 				}
 			}
@@ -456,9 +460,12 @@ function checkFlagpole() {
 	if( d < 5)
 	{
 		flagpole.isReached = true;
-		fill(0);
+		renderFlagpole();
+		fill(96, 211, 148);
+		rect(0, 200, 3000, 100,1);
+		fill(255);
 		noStroke();
-		textSize(40);
+		textSize(45);
 		text("Level complete. Press space to continue.", width, 300);
 		startGame();
 	}
@@ -469,7 +476,7 @@ function drawMountains()
 	for( var i = 0; i < mountain.length; i++) 
 	{
 		noStroke();
-		fill(102,56,63);
+		fill(0);
 		// Brown triangle
 		fill(102,56,63);
 		triangle(mountain[i].x_pos + 100, mountain[i].y_pos + mountain[i].height, 
@@ -483,8 +490,8 @@ function drawMountains()
 			mountain[i].x_pos + 150, mountain[i].y_pos, 
 			mountain[i].x_pos, mountain[i].y_pos);
 		// Orange triangle
-		stroke(229,66,45);
-		fill(229,66,45);
+		stroke(255, 138, 91);
+		fill(255, 138, 91);
 		triangle(mountain[i].x_pos + 100, mountain[i].y_pos + mountain[i].height, 
 			mountain[i].x_pos - 70, mountain[i].y_pos, 
 			mountain[i].x_pos, mountain[i].y_pos); 
@@ -497,8 +504,7 @@ function recurseClouds(x, y, scale)
 	{
 		return;
 	}
-	fill(6, 2, 112, 90);
-	//fill(51, 287, 255, 80);
+	fill(127, 200, 248, 80);
 	noStroke();
 	ellipse(x,y,scale);
 	recurseClouds(x + scale/2,y + random(-scale/2,scale/2),scale * 0.75);
@@ -511,7 +517,7 @@ function drawTrees()
 		noStroke();
 		fill(46,0,9);
 		ellipse(tree_x[i] + 20, treePos_y + 110, 10, 80);
-		fill(0,200,0);
+		fill(113, 131, 85);
 		stroke(5);
 		// corner ellipses
 		ellipse(tree_x[i], treePos_y + 45, 30, 15);
@@ -530,7 +536,7 @@ function drawTrees()
 
 function drawCanyon(t_canyon) 
 {
-	fill(229,66,45);
+	fill(255, 138, 91);
 	noStroke();
 	rect(t_canyon.x_pos, t_canyon.y_pos + 332, t_canyon.width - 30, 150);
 	rect(t_canyon.x_pos + 70, t_canyon.y_pos + 370, t_canyon.width - 50, 100);
@@ -594,8 +600,8 @@ function drawCube(xx, x_pos, y_pos)
 	var cW = x_pos; // x coordinate for center
 	var cH = y_pos; // y coordinate for center
 	var yy = xx/2; // half of side length
-	fill(0); // sets fill color to red
-	stroke(255);
+	fill(255, 230, 158); // sets fill color 
+	stroke(0);
 	quad (cW, cH, cW + xx, cH - yy, cW, cH - xx, cW - xx, cH - yy); // draws the top quad of a cube
 	quad (cW, cH, cW + xx, cH - yy, cW + xx, cH + xx, cW, cH + PI*yy); // draws the right quad of a cube
 	quad (cW, cH, cW, cH + PI*yy, cW - xx, cH + xx, cW - xx, cH - yy); // draws the left quad of a cube
@@ -646,9 +652,11 @@ function startGame() {
 	if( lives == 0)
 	{
 		fill(0);
+		rect(0, 200, 2000, 100,1);
+		fill(255);
 		noStroke();
 		textSize(45);
-		text("Game over. Press space to continue.", width/2 + 50 , 300);
+		text("Game over. Press space to continue.", width / 2 + 50, 250);
 		startGame();
 	}
 
@@ -665,7 +673,7 @@ function createPlatforms(x, y, length)
 		y: y,
 		length: length,
 		draw: function() {
-			fill(255, 0, 255);
+			fill(234, 82, 111);
 			rect(this.x, this.y, this.length, 20);
 		},
 
