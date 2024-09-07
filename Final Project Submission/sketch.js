@@ -24,6 +24,19 @@ var platforms;
 var enemies;
 var hasRecurseBeenCalled;
 var isContact;
+var jumpSound;
+var collectableSound;
+
+// Pre load Sounds
+function preload()
+{
+	soundFormats("mp3", "wav");
+	jumpSound = loadSound("assets/jump.wav");
+	jumpSound.setVolume(0,1);
+
+	collectableSound = loadSound("assets/collec.wav");
+	collectableSound.setVolume(0,1);
+}
 
 // Game Setup
 function setup()
@@ -119,6 +132,7 @@ function keyPressed()
 				gameChar_y = gameChar_y - 200;
 			}
 		isPlummeting = true;
+		jumpSound.play();
 	}
 }
 
@@ -450,7 +464,7 @@ function checkFlagpole() {
 		flagpole.isReached = true;
 		renderFlagpole();
 		fill(96, 211, 148);
-		rect(0, 200, 3000, 100,1);
+		rect(0, 150, 3000, 200,1);
 		fill(255);
 		noStroke();
 		textSize(45);
@@ -578,6 +592,7 @@ function checkCollectable(t_collectable) {
 	{
 		t_collectable.isFound = true;
 		game_score += 1;
+		collectableSound.play();
 	}
 }
 
@@ -635,7 +650,6 @@ function startGame() {
 	enemies = [];
 	enemies.push(new Enemy(900, floorPos_y - 10, 100));
 	enemies.push(new Enemy(1400, floorPos_y - 10, 50));
-	
 	
 	if( lives == 0)
 	{
