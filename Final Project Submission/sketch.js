@@ -53,7 +53,7 @@ function setup()
 	canyons = [{x_pos: 1050, y_pos: 100, width: 100},
 				{x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
-	flagpole = { isReached: false, x_pos: 1780 };
+	flagpole = { isReached: false, x_pos: 1580 };
 	lives = 3;
 	hasRecurseBeenCalled = false;
 	platforms = [];
@@ -120,10 +120,7 @@ function keyPressed()
 				gameChar_y = gameChar_y - 200;
 			}
 		isPlummeting = true;
-		console.log(gameChar_y);
 	}
-	console.log("keyPressed: " + key);
-	console.log("keyPressed: " + keyCode);
 }
 
 function keyReleased()
@@ -152,9 +149,6 @@ function keyReleased()
 		
 		
 	}
-
-	console.log("keyReleased: " + key);
-	console.log("keyReleased: " + keyCode);
 }
 
 function gameScenario() 
@@ -240,7 +234,6 @@ function gameScenario()
 				gameChar_y = floorPos_y;
 			} else {
 				gameChar_y += 10;
-				console.log(gameChar_y);
 			}
 		}
 	
@@ -441,13 +434,8 @@ function renderFlagpole() {
 
 				if( lives == 0)
 				{
-					//fill(0);
-					//rect(0, 200, 2000, 100, 1);
-					fill(0);
-					noStroke();
-					textSize(45);
-					gameCharWorld_x = gameChar_x;
-					text("Game over. Press space to continue.", gameCharWorld_x, 260);
+					fill(255,0,255);
+					text("Game over. Press space to continue.", 800, height/2);
 					startGame();
 				}
 			}
@@ -467,7 +455,7 @@ function checkFlagpole() {
 		fill(255);
 		noStroke();
 		textSize(45);
-		text("Level complete. Press space to continue.", width, 265);
+		text("Level complete. Press space to continue.", width - 200, 265);
 		startGame();
 	}
 }
@@ -652,19 +640,8 @@ function startGame() {
 	
 	if( lives == 0)
 	{
-
-		//fill(0);
-		//rect(0, 200, 2000, 100,1);
-		
-		noStroke();
-		textSize(45);
-		gameCharWorld_x = gameChar_x;
-		for(var i = 0; i < 1; i++)
-		{
-			fill(random(0,255), random(0,255), random(0,255));
-			textSize(48);
-			text("Game over. Press space to continue.", random(0,width), random(0,height));
-		}
+		fill(255,0,255);
+		text("Game over. Press space to continue.", 800, height/2);
 		startGame();
 	}
 
@@ -692,7 +669,6 @@ function createPlatforms(x, y, length)
 				var d = this.y - gameChar_y;
 				if(d >= 0 && d < 15)
 				{
-					console.log("Inline platform");
 					return true;
 				}
 			}
