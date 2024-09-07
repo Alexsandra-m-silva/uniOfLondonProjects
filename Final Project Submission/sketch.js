@@ -24,7 +24,6 @@ var platforms;
 var enemies;
 var hasRecurseBeenCalled;
 var isContact;
-var gameCharWorld_x;
 
 // Game Setup
 function setup()
