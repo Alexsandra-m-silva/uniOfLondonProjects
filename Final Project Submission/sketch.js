@@ -24,7 +24,20 @@ var platforms;
 var enemies;
 var hasRecurseBeenCalled;
 var isContact;
-var gameCharWorld_x;
+var jumpSound;
+var collectableSound;
+
+// Preload Sounds
+function preload()
+{
+	soundFormats("mp3", "wav");
+	// Jump
+	jumpSound = loadSound("assets/jump.wav");
+	jumpSound.setVolume(0,1);
+	// Collectable
+	collectableSound = loadSound("assets/collec.wav");
+	collectableSound.setVolume(0,1);
+}
 
 // Game Setup
 function setup()
@@ -51,7 +64,7 @@ function setup()
 					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false},
 					{x_pos: 1420, y_pos: floorPos_y - 140, size: 15, isFound: false}];
 	canyons = [{x_pos: 1050, y_pos: 100, width: 100},
-				{x_pos: 1500, y_pos: 100, width: 100}];
+			   {x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
 	flagpole = { isReached: false, x_pos: 1580 };
 	lives = 3;
@@ -120,6 +133,7 @@ function keyPressed()
 				gameChar_y = gameChar_y - 200;
 			}
 		isPlummeting = true;
+		jumpSound.play();
 	}
 }
 
@@ -145,9 +159,6 @@ function keyReleased()
 		} else {
 			gameChar_y = floorPos_y;
 		}
-		
-		
-		
 	}
 }
 
@@ -158,9 +169,9 @@ function gameScenario()
 	fill(255,255,255);
 	rect(0, 135, width, height + 500); 
 	noStroke();
-	//fill(229,66,45);
+	// Ground
 	fill(37, 206, 209);
-	rect(0, floorPos_y, width, height - floorPos_y); // draw some green ground
+	rect(0, floorPos_y, width, height - floorPos_y); 
 	push();
 	translate(-cameraPosX, 0);
 	// Sun 
@@ -181,9 +192,9 @@ function gameScenario()
 	renderFlagpole();
 	// check Flagpole
 	if(flagpole.isReached == false)
-		{
-			checkFlagpole();
-		}
+	{
+		checkFlagpole();
+	}
 	// Collectables
 	for(var i = 0; i < collectables.length; i++) 
 	{
@@ -203,8 +214,7 @@ function gameScenario()
 	// Game Character 
 	// Make character fall 
 	if(gameChar_y < floorPos_y)
-		{
-			
+		{	
 			for(var i = 0; i < platforms.length; i++)
 			{
 				if(platforms[i].checkContact(gameChar_x, gameChar_y) == true)
@@ -223,11 +233,9 @@ function gameScenario()
 				gameChar_y += 2;
 				isFalling = true;
 			}
-			
 		} else {
 			isFalling = false;
 		}
-	
 		if(isPlummeting == true)
 		{
 			if(gameChar_y > floorPos_y) {
@@ -236,7 +244,6 @@ function gameScenario()
 				gameChar_y += 10;
 			}
 		}
-	
 		if(isLeft && isFalling)
 		{
 			gameChar_x -= 5;
@@ -244,19 +251,16 @@ function gameScenario()
 			// body
 			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
-	
 			// arms
 			fill(253, 114, 114);
 			rect(gameChar_x - 11, gameChar_y - 55, 3, 12);
 			rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
-			
 			// legs
 			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 5, gameChar_y - 13, 3, 10);
 			rect(gameChar_x, gameChar_y - 20, 3, 10);
 			rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
-			
 			// eyes
 			fill(255);
 			stroke(5);
@@ -265,8 +269,7 @@ function gameScenario()
 			fill(0);
 			ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
 		}
-	
-		else if(isRight && isFalling)
+			else if(isRight && isFalling)
 		{
 			// walking right code
 			gameChar_x += 5;
@@ -274,19 +277,16 @@ function gameScenario()
 			// body
 			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
-	
 			// arms
 			fill(253, 114, 114);
 			rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
 			rect(gameChar_x + 10, gameChar_y - 55, 3, 12);
-	
 			// legs
 			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
 			rect(gameChar_x, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 3, gameChar_y - 13, 3, 10);
-			
 			// eyes
 			fill(255);
 			stroke(5);
@@ -294,24 +294,22 @@ function gameScenario()
 			noStroke();
 			fill(0);
 			ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
-		} else if(isLeft)
+		} 
+			else if(isLeft)
 		{
 			// walking left code
 			gameChar_x -= 5;
 			// body
 			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
-	
 			// arms
 			fill(253, 114, 114);
 			rect(gameChar_x + 7, gameChar_y - 35, 10, 3);
-	
 			// legs
 			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 20);
 			rect(gameChar_x, gameChar_y - 20, 3, 10);
 			rect(gameChar_x + 3, gameChar_y - 13, 3, 10);
-	
 			// eyes
 			fill(255);
 			stroke(5);
@@ -320,25 +318,21 @@ function gameScenario()
 			fill(0);
 			ellipse(gameChar_x - 9, gameChar_y - 45, 3, 8);
 		}
-	
-		else if(isRight)
+			else if(isRight)
 		{
 			// walking right code
 			gameChar_x += 5;
 			// body
 			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
-	
 			// arms
 			fill(253, 114, 114);
 			rect(gameChar_x - 17, gameChar_y - 35, 10, 3);
-	
 			// legs
 			fill(253, 114, 114);
 			rect(gameChar_x - 8, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 10, gameChar_y - 13, 3, 10);
 			rect(gameChar_x, gameChar_y - 20, 3, 20);
-			
 			// eyes
 			fill(255);
 			stroke(5);
@@ -346,20 +340,19 @@ function gameScenario()
 			noStroke();
 			fill(0);
 			ellipse(gameChar_x + 9, gameChar_y - 45, 3, 8);
-		} else if(isFalling || isPlummeting)
+		} 
+			else if(isFalling || isPlummeting)
 		{
 			// jumping facing forwards code
 			// body
 			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
-	
 			// legs
 			fill(253, 114, 114);
 			rect(gameChar_x - 13, gameChar_y - 20, 3, 10);
 			rect(gameChar_x - 14, gameChar_y - 13, 3, 10);
 			rect(gameChar_x + 10, gameChar_y - 20, 3, 10);
 			rect(gameChar_x + 9, gameChar_y - 13, 3, 10);
-	
 			// eyes
 			fill(255);
 			stroke(10);
@@ -367,23 +360,21 @@ function gameScenario()
 			noStroke();
 			fill(0);
 			ellipse(gameChar_x, gameChar_y - 45, 4, 8);
-	
 			// arms
 			fill(253, 114, 114);
 			rect(gameChar_x - 15, gameChar_y - 45, 3, 10);
 			rect(gameChar_x + 12, gameChar_y - 45, 3, 10);
-		} else
+		} 
+			else
 		{
 			// standing front facing code
 			// body
 			fill(181, 150, 229);
 			triangle(gameChar_x - 20, gameChar_y - 20, gameChar_x + 20, gameChar_y - 20, gameChar_x, gameChar_y - 70);
-	
 			// legs
 			fill(253, 114, 114);
 			rect(gameChar_x - 13, gameChar_y - 20, 3, 20);
 			rect(gameChar_x + 10, gameChar_y - 20, 3, 20);
-	
 			// eyes
 			fill(255);
 			stroke(10);
@@ -391,13 +382,12 @@ function gameScenario()
 			noStroke();
 			fill(0);
 			ellipse(gameChar_x, gameChar_y - 45, 4, 8);
-	
 			// arms
 			fill(253, 114, 114);
 			rect(gameChar_x - 15, gameChar_y - 35, 3, 10);
 			rect(gameChar_x + 12, gameChar_y - 35, 3, 10);
-	
 		}
+
 		pop();
 }
 
@@ -417,13 +407,10 @@ function renderFlagpole() {
 	{
 		rect(flagpole.x_pos, floorPos_y - 240, 50,50);
 	}
-
 	for(var i = 0; i < enemies.length; i++)
 		{
 			enemies[i].draw();
-	
 			var isContact = enemies[i].checkContact(gameChar_x, gameChar_y);
-	
 			if(isContact)
 			{
 				if(lives > 0)
@@ -431,7 +418,6 @@ function renderFlagpole() {
 					startGame();
 					break;
 				}
-
 				if( lives == 0)
 				{
 					fill(255,0,255);
@@ -445,13 +431,12 @@ function renderFlagpole() {
 
 function checkFlagpole() {
 	var d = abs(gameChar_x - flagpole.x_pos);
-	
 	if( d < 5)
 	{
 		flagpole.isReached = true;
 		renderFlagpole();
 		fill(96, 211, 148);
-		rect(0, 200, 3000, 100,1);
+		rect(0, 150, 3000, 200,1);
 		fill(255);
 		noStroke();
 		textSize(45);
@@ -469,21 +454,21 @@ function drawMountains()
 		// Brown triangle
 		fill(102,56,63);
 		triangle(mountain[i].x_pos + 100, mountain[i].y_pos + mountain[i].height, 
-			mountain[i].x_pos + 150, mountain[i].y_pos, 
-			mountain[i].x_pos, mountain[i].y_pos);
+				 mountain[i].x_pos + 150, mountain[i].y_pos, 
+				 mountain[i].x_pos, mountain[i].y_pos);
 		// Shade triangle
 		let c = color(251,184,79);
 		let lightValue = lightness(c);
 		fill(lightValue);
 		triangle(mountain[i].x_pos + 374, (mountain[i].y_pos - mountain[i].height) * 0.77, 
-			mountain[i].x_pos + 150, mountain[i].y_pos, 
-			mountain[i].x_pos, mountain[i].y_pos);
+				 mountain[i].x_pos + 150, mountain[i].y_pos, 
+				 mountain[i].x_pos, mountain[i].y_pos);
 		// Orange triangle
 		stroke(255, 138, 91);
 		fill(255, 138, 91);
 		triangle(mountain[i].x_pos + 100, mountain[i].y_pos + mountain[i].height, 
-			mountain[i].x_pos - 70, mountain[i].y_pos, 
-			mountain[i].x_pos, mountain[i].y_pos); 
+				 mountain[i].x_pos - 70, mountain[i].y_pos, 
+				 mountain[i].x_pos, mountain[i].y_pos); 
 	}
 }
 
@@ -502,7 +487,8 @@ function recurseClouds(x, y, scale)
 
 function drawTrees() 
 {
-	for(var i = 0; i < tree_x.length; i++) {
+	for(var i = 0; i < tree_x.length; i++) 
+	{
 		noStroke();
 		fill(46,0,9);
 		ellipse(tree_x[i] + 20, treePos_y + 110, 10, 80);
@@ -539,22 +525,24 @@ function checkCanyon(t_canyon) {
 	if(gameChar_x > t_canyon.x_pos && gameChar_x < t_canyon.x_pos + t_canyon.width ||
 		gameChar_x > t_canyon.x_pos + 250 && gameChar_x < t_canyon.x_pos + 250 + t_canyon.width)
 	{
-		if(isPlummeting == false) {
+		if(isPlummeting == false) 
+		{
 			gameChar_y = floorPos_y;
 		}
 	}
 
 	if(gameChar_x > t_canyon.x_pos + 70 && gameChar_x < t_canyon.x_pos + 20 + t_canyon.width ||
-		gameChar_x > t_canyon.x_pos + 220 && gameChar_x < t_canyon.x_pos + 150 + t_canyon.width)
+	   gameChar_x > t_canyon.x_pos + 220 && gameChar_x < t_canyon.x_pos + 150 + t_canyon.width)
 	{
-		if(isPlummeting == false) {
+		if(isPlummeting == false) 
+		{
 			gameChar_y = t_canyon.y_pos + 370;
 		}
 	}
-	
 	if(gameChar_x > (t_canyon.x_pos + 60 + t_canyon.width) && gameChar_x < (t_canyon.x_pos + 210))
 	{
-		if(isPlummeting == false) {
+		if(isPlummeting == false) 
+		{
 			gameChar_y = gameChar_y += 10;
 		}
 	}
@@ -563,13 +551,13 @@ function checkCanyon(t_canyon) {
 function drawCollectable(t_collectable) 
 {
 	if(t_collectable.isFound == false)
-		{
-			noStroke();
-			fill(255);
-			// cube function
-			var size = t_collectable.size; // sets cube side length 
-			drawCube(size, t_collectable.x_pos, t_collectable.y_pos);
-		}
+	{
+		noStroke();
+		fill(255);
+		// cube function
+		var size = t_collectable.size; // sets cube side length 
+		drawCube(size, t_collectable.x_pos, t_collectable.y_pos);
+	}
 }
 
 function checkCollectable(t_collectable) {
@@ -579,6 +567,7 @@ function checkCollectable(t_collectable) {
 	{
 		t_collectable.isFound = true;
 		game_score += 1;
+		collectableSound.play();
 	}
 }
 
@@ -597,7 +586,6 @@ function drawCube(xx, x_pos, y_pos)
 }
 
 function checkPlayerDie() {
-
 	if(gameChar_y > 531)
 	{
 		lives -= 1;
@@ -627,7 +615,7 @@ function startGame() {
 					{x_pos: 600, y_pos: floorPos_y - 30, size: 15, isFound: false},
 					{x_pos: 1420, y_pos: floorPos_y - 140, size: 15, isFound: false}];
 	canyons = [{x_pos: 1050, y_pos: 100, width: 100},
-				{x_pos: 1500, y_pos: 100, width: 100}];
+			   {x_pos: 1500, y_pos: 100, width: 100}];
 	game_score = 0;		
 	hasRecurseBeenCalled = false;
 	platforms = [];
@@ -636,7 +624,6 @@ function startGame() {
 	enemies = [];
 	enemies.push(new Enemy(900, floorPos_y - 10, 100));
 	enemies.push(new Enemy(1400, floorPos_y - 10, 50));
-	
 	
 	if( lives == 0)
 	{
