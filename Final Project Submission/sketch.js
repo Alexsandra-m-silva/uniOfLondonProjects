@@ -560,6 +560,15 @@ function drawCollectable(t_collectable)
 	}
 }
 
+/* 
+By: Carlos Medeiros, review later
+function collectableSound2(){
+	collectableSound = loadSound("assets/collec.wav");
+	collectableSound.setVolume(0,1);
+	collectableSound.play();
+
+} */
+
 function checkCollectable(t_collectable) {
 	// Calculate the distance between t_collectable and character
 	let d = dist(t_collectable.x_pos, t_collectable.y_pos, gameChar_x, gameChar_y);
@@ -568,6 +577,7 @@ function checkCollectable(t_collectable) {
 		t_collectable.isFound = true;
 		game_score += 1;
 		collectableSound.play();
+		// collectableSound2();
 	}
 }
 
